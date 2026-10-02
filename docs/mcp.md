@@ -1,5 +1,15 @@
 # Local MCP setup
 
+## MCPB bundle
+
+The release workflow builds `jev-decision-gate-0.3.0.mcpb`, verifies the archive over stdio, publishes it to GitHub Releases, then registers `io.github.f-tiger/jev-decision-gate` with the official MCP Registry using GitHub OIDC. Check [publication status](distribution.md) for completed steps.
+
+Import the bundle into a host supporting **MCPB manifest 0.4 with the UV runtime**, then choose an existing absolute directory containing your Issue JSON. UV may download Python and locked dependencies on first launch. Host support varies; the conventional setup below remains available. The bundle has been exercised on Linux; GUI host import, macOS and Windows have not been verified.
+
+Leave **Enable paid Jev calls** off to use the rules baseline without a key. To enable Jev later, use the host's protected configuration for the optional API key. The bundle prompts for a directory, an explicit Jev opt-in and a per-invocation call cap. Never put credentials in the download URL or chat. This preview bundle is unsigned; the release includes its SHA256 checksum.
+
+## Python stdio setup
+
 Install with `python -m pip install '.[mcp]'` from the cloned project. This pins `mcp==2.2.0`. The default core package uses only the Python standard library. Use the absolute executable path from your virtual environment to avoid host PATH differences.
 
 For hosts supporting the conventional `mcpServers` configuration:
@@ -15,7 +25,7 @@ For hosts supporting the conventional `mcpServers` configuration:
 }
 ```
 
-On Windows, the command is the environment's `Scripts/bpj-gate-mcp.exe`. Hosts use different configuration locations and keys; use the host's current documentation. This project speaks local **stdio**, not remote HTTP, and is not yet published in the MCP Registry.
+On Windows, the command is the environment's `Scripts/bpj-gate-mcp.exe`. Hosts use different configuration locations and keys; use the host's current documentation. This project speaks local **stdio**, not remote HTTP.
 
 Add `--allow-jev` to `args` and expose `TYPESAFE_API_KEY` through the host's secret/environment mechanism only when you intend to make paid TypeSafe calls. Default `--max-calls 20` limits calls in **each tool invocation**, not per day or account. Requests above that limit fail before any model call. The user controls the provider's billing limits. There is no total-spend enforcement or hidden retry loop.
 

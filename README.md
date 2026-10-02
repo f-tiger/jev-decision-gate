@@ -106,7 +106,7 @@ For hosts supported by the [Skills CLI](https://github.com/vercel-labs/skills):
 npx skills add f-tiger/jev-decision-gate --skill bpj-decision-gate
 ```
 
-Discovery with `--list` has been verified. Choose your agent during installation. The third-party Skills CLI has its own optional telemetry; see [its documentation](https://skills.sh/docs/cli) for `DISABLE_TELEMETRY=1`. This package itself has no telemetry.
+Discovery, an isolated public-repository installation and the installed Skill’s rules demo have been verified. Choose your agent during installation. The third-party Skills CLI has its own optional telemetry; see [its documentation](https://skills.sh/docs/cli) for `DISABLE_TELEMETRY=1`. This package itself has no telemetry.
 
 ```python
 from bpj_decision_gate.triage import triage

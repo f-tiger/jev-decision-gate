@@ -1,0 +1,118 @@
+name: Publish MCP bundle and Registry entry
+on:
+  push:
+    branches: [main]
+    paths: ['distribution/release.json']
+    tags: ['v*']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: publish-mcp
+  cancel-in-progress: false
+jobs:
+  verify:
+    if: github.repository == 'f-tiger/jev-decision-gate' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v'))
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install verification dependencies
+        run: python -m pip install '.[mcp]' 'uv==0.12.19' 'jsonschema==4.26.0'
+      - name: Check core, Skill parity and both MCP protocols
+        run: |
+          python -m unittest discover -s tests -v
+          python tools/check_skill_parity.py
+          python tests/smoke_mcp.py
+      - name: Validate dependency lock and bundle manifest
+        run: |
+          uv lock --check --directory distribution --default-index https://pypi.org/simple
+          npx --yes @anthropic-ai/mcpb@2.1.2 validate distribution/manifest.json
+      - name: Build and validate package metadata
+        run: |
+          python tools/build_mcpb.py
+          python tools/verify_registry.py --schema-only
+      - name: Exercise the built archive
+        run: python tests/smoke_mcpb.py dist/*.mcpb
+      - name: Resolve release version
+        id: version
+        run: |
+          VERSION=$(python -c 'import json; print(json.load(open("distribution/release.json"))["version"])')
+          if [[ "$GITHUB_REF" == refs/tags/* && "$GITHUB_REF" != "refs/tags/v$VERSION" ]]; then
+            echo 'Tag must match distribution/release.json' >&2
+            exit 1
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: verified-mcp-release
+          path: |
+            dist/*.mcpb
+            dist/server.json
+            dist/SHA256SUMS
+          if-no-files-found: error
+  release:
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: verified-mcp-release
+          path: dist
+      - name: Publish immutable preview assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ needs.verify.outputs.version }}
+        run: |
+          if gh release view "v$VERSION" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            mkdir "$RUNNER_TEMP/existing-mcp"
+            gh release download "v$VERSION" --repo "$GITHUB_REPOSITORY" --dir "$RUNNER_TEMP/existing-mcp"
+            for asset in dist/*; do
+              cmp "$asset" "$RUNNER_TEMP/existing-mcp/$(basename "$asset")"
+            done
+            echo 'Identical release assets already published; continuing registration.'
+          else
+            gh release create "v$VERSION" dist/*.mcpb dist/server.json dist/SHA256SUMS \
+              --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease \
+              --title "Jev Decision Gate v$VERSION · MCP preview" --notes-file distribution/release-notes.md
+          fi
+  register:
+    needs: [verify, release]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: verified-mcp-release
+          path: dist
+      - name: Install pinned Registry publisher
+        run: |
+          curl --fail --location --retry 3 --output "$RUNNER_TEMP/mcp-publisher.tar.gz" \
+            https://github.com/modelcontextprotocol/registry/releases/download/v1.8.1/mcp-publisher_linux_amd64.tar.gz
+          echo "a06c9096dcb9727c13555b6be26c7effa707b01f06a4c561ba7a3635443cf2cc  $RUNNER_TEMP/mcp-publisher.tar.gz" | sha256sum --check
+          tar -xzf "$RUNNER_TEMP/mcp-publisher.tar.gz" -C "$RUNNER_TEMP" mcp-publisher
+      - name: Verify public release download
+        run: python tools/verify_registry.py --asset-only
+      - name: Register using GitHub OIDC
+        run: |
+          if python tools/verify_registry.py --registry; then
+            echo 'Exact version and artifact are already registered.'
+          else
+            "$RUNNER_TEMP/mcp-publisher" login github-oidc
+            "$RUNNER_TEMP/mcp-publisher" publish dist/server.json
+          fi
+      - name: Read back Registry record
+        run: python tools/verify_registry.py --registry

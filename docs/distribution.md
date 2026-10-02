@@ -1,0 +1,39 @@
+# Distribution and submission status
+
+Checked 2026-10-02. Installation, Registry registration and curated directory acceptance are different outcomes.
+
+| Channel | Status | Evidence / next step |
+|---|---|---|
+| Public source | Available | [Repository](https://github.com/f-tiger/jev-decision-gate) |
+| Skills CLI | Public-repository install and bundled rules demo verified | `npx skills add f-tiger/jev-decision-gate --skill bpj-decision-gate` |
+| skills.sh listing | Not confirmed | Listing/discovery is influenced by genuine CLI installs; no installs or rankings are fabricated |
+| GitHub MCPB release | Prepared; publication pending | [Release workflow](https://github.com/f-tiger/jev-decision-gate/actions/workflows/publish-mcp.yml) |
+| Official MCP Registry | Pending publication | Name: `io.github.f-tiger/jev-decision-gate` |
+| heyjunpenn/awesome-jev (jevbest) | Submission prepared; not sent yet | Maintainer review required |
+| hellogumbo/awesome-jev | Submission prepared; not sent yet | Maintainer review required |
+| yibie/awesome-jev | Not submitted | Requires a category-file PR and regenerated README |
+| Smithery / other markets | Not submitted | Separate publisher/account and host requirements; official Registry registration does not guarantee listing |
+
+## Release maintenance
+
+The workflow runs tests, checks the Skill's code parity, validates the MCPB manifest and official Registry JSON Schema, and exercises the actual archive in modern and legacy protocol modes. Only then does it publish a GitHub preview release. A separate job with `id-token: write` registers it through GitHub OIDC; no long-lived Registry token, PyPI account or container registry is required. The release-writing permission is restricted to its own job.
+
+Change `distribution/release.json` on `main` to deliberately trigger a release, or run the workflow manually; `v*` tags also trigger it. Versions in the root package, bundle manifest and bundle pyproject must match. Refresh `distribution/uv.lock` when dependencies change. Use a **new version** for changed artifacts; retries require identical existing release bytes and do not overwrite them.
+
+The MCPB builder includes only allowlisted source, the launcher, manifest, lockfile, license and bundle guide. Private data, reports, environment files and local environments are excluded. The archive is deterministic for the same inputs/build toolchain. The Registry step downloads the public asset and checks its SHA256, publishes, then reads back the exact active name/version/package record.
+
+## Honest distribution metrics
+
+Track successful installs, successful rules runs, live evaluations with user-authorized data, and repeat usage separately. Stars, directory entries and website clicks are discovery signals, not evidence of model quality or savings. This project does not emit telemetry. Test installs disable the third-party Skills CLI telemetry and are not claimed as independent adoption.
+
+Live Jev comparisons are still unmeasured. Price ratios in the README are arithmetic from dated list prices, not token-volume reductions or measured total-cost savings.
+
+## Sources
+
+- [Official MCP Registry: GitHub Actions/OIDC](https://modelcontextprotocol.io/registry/github-actions)
+- [Official MCP Registry: MCPB packages](https://modelcontextprotocol.io/registry/package-types)
+- [MCPB manifest specification](https://github.com/modelcontextprotocol/mcpb/blob/main/MANIFEST.md)
+- [Skills FAQ](https://skills.sh/docs/faq)
+- [heyjunpenn/awesome-jev](https://github.com/heyjunpenn/awesome-jev)
+- [hellogumbo submission guidelines](https://github.com/hellogumbo/awesome-jev/blob/main/CONTRIBUTING.md)
+- [yibie submission guidelines](https://github.com/yibie/awesome-jev/blob/main/CONTRIBUTING.md)

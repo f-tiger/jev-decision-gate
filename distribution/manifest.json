@@ -1,0 +1,48 @@
+{
+  "manifest_version": "0.4",
+  "name": "jev-decision-gate",
+  "display_name": "Jev Decision Gate · by BPJ",
+  "version": "0.3.0",
+  "description": "Local Issue triage, optional Jev judgments and independently calibrated acceptance gates.",
+  "author": {"name": "BPJ", "url": "https://baipiaoji.com/en/developers"},
+  "homepage": "https://github.com/f-tiger/jev-decision-gate",
+  "repository": {"type": "git", "url": "https://github.com/f-tiger/jev-decision-gate"},
+  "license": "MIT",
+  "keywords": ["jev", "issue-triage", "evaluation", "routing"],
+  "server": {
+    "type": "uv",
+    "entry_point": "server/main.py",
+    "mcp_config": {
+      "command": "uv",
+      "args": ["run", "--frozen", "--directory", "${__dirname}", "server/main.py"],
+      "env": {
+        "BPJ_DATA_ROOT": "${user_config.data_root}",
+        "BPJ_ALLOW_JEV": "${user_config.allow_jev}",
+        "BPJ_MAX_CALLS": "${user_config.max_calls}",
+        "TYPESAFE_API_KEY": "${user_config.api_key}"
+      }
+    }
+  },
+  "user_config": {
+    "data_root": {
+      "type": "directory", "title": "Issue JSON directory",
+      "description": "An existing trusted local directory containing JSON files you authorize the tool to read.",
+      "required": true
+    },
+    "allow_jev": {
+      "type": "boolean", "title": "Enable paid Jev calls",
+      "description": "Allow selected Issue title/body text to be sent to TypeSafe. Off by default; rules work without a key.",
+      "default": false
+    },
+    "api_key": {
+      "type": "string", "title": "TypeSafe API key (optional)",
+      "description": "Only needed when enabling Jev. Use the host's protected configuration; never paste it into a chat.",
+      "sensitive": true, "default": ""
+    },
+    "max_calls": {
+      "type": "number", "title": "Maximum Jev calls per invocation",
+      "description": "Integer limit per tool invocation, not a daily or account spending limit.",
+      "default": 20, "min": 1, "max": 200
+    }
+  }
+}

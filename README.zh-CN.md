@@ -79,7 +79,7 @@ bpj-gate-mcp --data-root /你的授权数据目录
 npx skills add f-tiger/jev-decision-gate --skill bpj-decision-gate
 ```
 
-已验证 `--list` 能发现该 Skill。安装时选择自己的 Agent。第三方 CLI 有独立的可选遥测，退出方式为 `DISABLE_TELEMETRY=1`，详见[官方说明](https://skills.sh/docs/cli)；本项目包自身没有遥测。
+已验证 `--list` 能发现该 Skill，并完成独立安装和安装后的规则演示。安装时选择自己的 Agent。第三方 CLI 有独立的可选遥测，退出方式为 `DISABLE_TELEMETRY=1`，详见[官方说明](https://skills.sh/docs/cli)；本项目包自身没有遥测。
 
 ## 商业边界
 
