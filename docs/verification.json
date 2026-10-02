@@ -1,0 +1,73 @@
+{
+  "version": "0.3.0",
+  "checked": "2026-10-02",
+  "python_tested": "3.12.14",
+  "unit_tests": {
+    "passed": 24,
+    "command": "python -m unittest discover -s tests -v"
+  },
+  "mcp_wire_tests": {
+    "evidence": "SYNTHETIC INTEROPERABILITY TEST ONLY",
+    "checks": [
+      {
+        "mode": "auto",
+        "protocol": "2026-07-28",
+        "tools": [
+          "calibrate_gate",
+          "calibrate_issue_gate",
+          "evaluate_gate",
+          "evaluate_issue_gate",
+          "route_batch",
+          "triage_issues"
+        ],
+        "status": "passed",
+        "rejected_invalid_calls": 10
+      },
+      {
+        "mode": "legacy",
+        "protocol": "2025-11-25",
+        "tools": [
+          "calibrate_gate",
+          "calibrate_issue_gate",
+          "evaluate_gate",
+          "evaluate_issue_gate",
+          "route_batch",
+          "triage_issues"
+        ],
+        "status": "passed",
+        "rejected_invalid_calls": 10
+      }
+    ]
+  },
+  "clean_environment_wheel_install": "passed; offline demo ran without MCP or provider dependencies",
+  "skill_package_parity": {
+    "files": 9,
+    "status": "passed"
+  },
+  "skill_forward_test": {
+    "status": "passed",
+    "provider": "rules-v1",
+    "synthetic_issues": 12,
+    "joint_correct": 8,
+    "review": 12,
+    "model_calls": 0,
+    "savings_measured": false
+  },
+  "adversarial_review": [
+    "Contract validation rejects malformed probabilities, model mismatch, unsupported labels, invalid usage and expected-label leakage.",
+    "Wrong or insufficient evidence remains review; disjoint ID guard, disabled-call bypass, path boundaries and truthful synthetic labeling verified."
+  ],
+  "wheel_sha256": "36a2a49dbb2dfaf64e52a53491ed3ba24418ca96d9b4772df2ebefd13b2c91be",
+  "live_jev": {
+    "status": "not_run",
+    "reason": "TYPESAFE_API_KEY unavailable; no paid model calls made"
+  },
+  "github_publication": "pending repository creation; CI configuration prepared, remote CI not yet run",
+  "website_publication": "not_deployed; BPJ entry copy prepared and README links existing developer page",
+  "registries": {
+    "pypi": "not_published",
+    "mcp_registry": "not_published"
+  },
+  "paid_service": "not_available",
+  "interpretation": "Code tests and original synthetic fixtures establish mechanics only; no customer efficacy, Jev quality or net savings claim."
+}

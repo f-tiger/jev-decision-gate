@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bpj-decision-gate"
+version = "0.3.0"
+description = "Local issue triage and independently calibrated acceptance gates, with a Jev adapter"
+requires-python = ">=3.11"
+license = "MIT"
+readme = "README.md"
+dependencies = []
+
+[project.optional-dependencies]
+mcp = ["mcp==2.2.0"]
+
+[project.scripts]
+bpj-gate = "bpj_decision_gate.cli:main"
+bpj-gate-mcp = "bpj_decision_gate.mcp_server:main"
+
+[project.urls]
+Homepage = "https://baipiaoji.com/en/developers"
+Repository = "https://github.com/f-tiger/jev-decision-gate"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+bpj_decision_gate = ["demo-issues.json"]
