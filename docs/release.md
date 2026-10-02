@@ -18,4 +18,4 @@ For a Skill installed under the old `bpj-decision-gate` name, install the new na
 
 Issue triage, six MCP tools, the rules baseline, Jev contract and acceptance method are unchanged. The rename does not establish new quality, token or cost results. Live Jev evaluation remains pending. [Verification](verification.json) and [publication status](distribution.md) record completed checks and active versions.
 
-v0.3.0 was the first public preview, with a GitHub MCPB release and official Registry entry. Version 0.3.1 is a naming/compatibility update; see the publication status for its actual registration outcome.
+v0.3.0 was the first public preview, with a GitHub MCPB release and official Registry entry. Version 0.3.1 is [published](https://github.com/f-tiger/jev-decision-gate/releases/tag/v0.3.1) and [registered](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.f-tiger%2Fjev-decision-gate/versions/0.3.1); public asset checksums and the active Registry record have been verified.

@@ -14,7 +14,7 @@
 
 这是独立的 MIT 开源工具，首发面向仓库维护者和小型开发团队：输出 Issue 类型、模块和信息是否充分。提供 Python SDK、CLI、MCP 和 Skill。不会改标签、发评论或关闭 Issue。
 
-当前 v0.3.0 是开发者预览。实现包含真正的 Jev HTTP 适配器；没有 API 密钥时，只能验证接口契约，不能宣称已完成真实 Jev 测量。随附 12 个案例由我们编写，属于合成演示，不是客户案例或代表性评测。
+当前 v0.3.1 是开发者预览。实现包含真正的 Jev HTTP 适配器；没有 API 密钥时，只能验证接口契约，不能宣称已完成真实 Jev 测量。随附 12 个案例由我们编写，属于合成演示，不是客户案例或代表性评测。
 
 ## 本地开始
 
@@ -67,7 +67,7 @@ jev-gate triage new-issues.json --provider jev --policy policy.json --out decisi
 
 ## 接入 MCP / Skill
 
-**[下载 MCP 安装包](https://github.com/f-tiger/jev-decision-gate/releases/tag/v0.3.0)**，适用于支持 MCPB 0.4 和 UV 的宿主。选择 Issue JSON 目录即可，Jev 默认关闭。已注册到[官方 MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.f-tiger%2Fjev-decision-gate/versions/0.3.0)，名称为 `io.github.f-tiger/jev-decision-gate`。[安装与收录状态](docs/distribution.md)。
+**[下载 MCP 安装包](https://github.com/f-tiger/jev-decision-gate/releases/tag/v0.3.1)**，适用于支持 MCPB 0.4 和 UV 的宿主。选择 Issue JSON 目录即可，Jev 默认关闭。已注册到[官方 MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.f-tiger%2Fjev-decision-gate/versions/0.3.1)，名称为 `io.github.f-tiger/jev-decision-gate`。[安装与收录状态](docs/distribution.md)。
 
 ```bash
 jev-gate-mcp --data-root /你的授权数据目录

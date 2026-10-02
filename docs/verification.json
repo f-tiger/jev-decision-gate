@@ -64,10 +64,10 @@
   "github_publication": {
     "status": "published",
     "repository": "https://github.com/f-tiger/jev-decision-gate",
-    "source_commit": "b2e646cd9c6186169f49f9331259edb6e722519c",
+    "source_commit": "69d2c69f0c49f6537cb2f4feb47502fba9112e42",
     "public_clone_install": "passed; rules demo completed from an unauthenticated public clone",
     "ci": {
-      "run": "https://github.com/f-tiger/jev-decision-gate/actions/runs/36955430515",
+      "run": "https://github.com/f-tiger/jev-decision-gate/actions/runs/36959163960",
       "python": [
         "3.11",
         "3.12"
@@ -78,14 +78,15 @@
         "modern and legacy stdio MCP",
         "package/Skill parity",
         "offline CLI demo",
-        "wheel build and artifact upload"
+        "wheel build and artifact upload",
+        "new Jev commands/imports and legacy compatibility"
       ]
     }
   },
   "website_publication": "not_deployed; BPJ entry copy prepared and README links existing developer page",
   "registries": {
     "pypi": "not_published",
-    "mcp_registry": "v0.3.0 active; v0.3.1 prepared and local validation passed"
+    "mcp_registry": "registered; active io.github.f-tiger/jev-decision-gate version 0.3.1"
   },
   "paid_service": "not_available",
   "interpretation": "Code tests and original synthetic fixtures establish mechanics only; no customer efficacy, Jev quality or net savings claim.",
@@ -96,11 +97,11 @@
       "docs/assets/token-cost-zh-CN.gif"
     ],
     "evidence": "Dated provider list prices and hypothetical input-cost arithmetic, plus actual offline rules output; no live Jev comparison",
-    "skill_discovery": "Renamed to jev-decision-gate; public Skills CLI verification pending this release",
+    "skill_discovery": "DISABLE_TELEMETRY=1 npx --yes skills add f-tiger/jev-decision-gate --skill jev-decision-gate --agent codex --yes --json: installed jev-decision-gate; installed demo passed",
     "distribution": "Two directory applications submitted; social posts remain drafts"
   },
   "mcpb_distribution": {
-    "status": "v0.3.1_local_validation_passed_publication_pending",
+    "status": "published_and_registered",
     "version": "0.3.1",
     "manifest_version": "0.4",
     "runtime": "uv",
@@ -121,35 +122,38 @@
     },
     "gui_host_import": "not_tested",
     "macos_windows": "not_tested",
-    "ci": null,
-    "release": null,
-    "registry_record": null,
-    "registry_status": "pending",
-    "public_release_download_sha256": "pending",
-    "registry_name_version_package_readback": "pending",
-    "ci_conclusion": "pending"
+    "ci": "https://github.com/f-tiger/jev-decision-gate/actions/runs/36959163942",
+    "release": "https://github.com/f-tiger/jev-decision-gate/releases/tag/v0.3.1",
+    "registry_record": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.f-tiger%2Fjev-decision-gate/versions/0.3.1",
+    "registry_status": "active",
+    "public_release_download_sha256": "passed",
+    "registry_name_version_package_readback": "passed",
+    "ci_conclusion": "success"
   },
   "skills_cli_install": {
-    "status": "renamed_skill_local_demo_passed_public_install_pending",
+    "status": "passed",
     "source": "f-tiger/jev-decision-gate",
     "skill": "jev-decision-gate",
     "scope": "isolated project",
     "agent": "codex",
-    "installed_skill_demo": "passed; 12 synthetic issues; 8 jointly correct; all 12 review; zero model calls",
+    "installed_skill_demo": "passed from public GitHub source; 12 synthetic issues; 8 jointly correct; 12 review; zero model calls",
     "third_party_cli_telemetry": "disabled for test installation",
     "skills_sh_listing": "not_confirmed",
-    "independent_adoption_claimed": false
+    "independent_adoption_claimed": false,
+    "version": "0.3.1"
   },
   "directory_submissions": [
     {
       "repository": "heyjunpenn/awesome-jev",
       "url": "https://github.com/heyjunpenn/awesome-jev/issues/72",
-      "status": "submitted_pending_review"
+      "status": "submitted_pending_review",
+      "naming_update": "existing application updated to new Skill command and v0.3.1 evidence links"
     },
     {
       "repository": "hellogumbo/awesome-jev",
       "url": "https://github.com/hellogumbo/awesome-jev/issues/152",
-      "status": "submitted_pending_review"
+      "status": "submitted_pending_review",
+      "naming_update": "existing application updated to new Skill command and v0.3.1 evidence links"
     }
   ],
   "previous_release": {
@@ -172,7 +176,7 @@
     "legacy_cli_and_imports": "passed tests/smoke_names.py",
     "package_mcp_names": "passed modern and legacy wire tests",
     "bundle_mcp_name_and_version": "passed actual archive wire tests",
-    "installed_personal_skill": "local demo and both wire protocols passed; save verification pending",
+    "installed_personal_skill": "saved and reconciled; Jev display name and $jev-decision-gate prompt verified",
     "animation": "both GIFs regenerated; final command frames visually inspected"
   }
 }

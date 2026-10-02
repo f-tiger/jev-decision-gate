@@ -66,7 +66,7 @@ To estimate the cost of provider-reported input tokens, explicitly add `--input-
 ]
 ```
 
-`expected` is optional at inference time and required for calibration/evaluation. It is never sent to Jev. Use human-reviewed labels. Fixed labels in v0.3.0:
+`expected` is optional at inference time and required for calibration/evaluation. It is never sent to Jev. Use human-reviewed labels. Fixed labels in v0.3.1:
 
 | Field | Labels |
 |---|---|
@@ -92,7 +92,7 @@ The fixed threshold search uses an exact one-sided binomial bound with Bonferron
 
 ## MCP, Skill and Python
 
-**[Download the MCP bundle](https://github.com/f-tiger/jev-decision-gate/releases/tag/v0.3.0)** for hosts supporting MCPB 0.4 with UV. Choose your Issue JSON directory; Jev is off by default. Registered as `io.github.f-tiger/jev-decision-gate` in the [official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.f-tiger%2Fjev-decision-gate/versions/0.3.0). [Installation and distribution status](docs/distribution.md).
+**[Download the MCP bundle](https://github.com/f-tiger/jev-decision-gate/releases/tag/v0.3.1)** for hosts supporting MCPB 0.4 with UV. Choose your Issue JSON directory; Jev is off by default. Registered as `io.github.f-tiger/jev-decision-gate` in the [official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.f-tiger%2Fjev-decision-gate/versions/0.3.1). [Installation and distribution status](docs/distribution.md).
 
 ```bash
 jev-gate-mcp --data-root /absolute/path/to/authorized-json
