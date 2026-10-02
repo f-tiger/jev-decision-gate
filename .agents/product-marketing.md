@@ -1,6 +1,6 @@
 # Product Marketing Context
 
-**Document version:** v2
+**Document version:** v3
 **Last updated:** 2026-10-02
 
 ## Product overview
@@ -26,6 +26,10 @@ Use “triage”, “review”, “held-out evaluation”, “provider-reported 
 ## Proof and goals
 Code tests and synthetic demos can establish mechanics. They cannot establish live Jev quality, retained customers or revenue. See docs/verification.json for current evidence. Desired conversion: successful local run, then a returning team with labeled results, then a specific recurring-service request. Keep visits, clone/download intent, confirmed installs, repeated use, inquiries and payments separate.
 
+## Distribution experiment
+Lead with dated input-token pricing, followed by a reproducible Issue example, installation and voluntary feedback. The 238× Fable/Jev input-price ratio is not a measured token or workflow saving; include a cheaper-model reference and fallback assumptions. The GIF and snapshot are dated 2026-10-02. Prioritize Jev directories, compatible Skill hosts and developer communities; external submissions are drafts until actually posted. See docs/growth-plan.zh-CN.md and docs/launch-kit.md.
+
 ## Changelog
+- v3 (2026-10-02) — Added cost-led discovery, evidence boundaries, developer installation funnel and a measurable distribution experiment after ecosystem research.
 - v2 (2026-10-02) — Public repository named jev-decision-gate at owner request; BPJ package/CLI/Skill identifiers remain compatible.
 - v1 (2026-10-02) — Initial developer-first positioning; separate independent repository, offline evidence and possible future paid service.

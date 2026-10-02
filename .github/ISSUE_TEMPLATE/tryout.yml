@@ -1,0 +1,39 @@
+name: Tryout feedback / 试用反馈
+description: Tell us what ran, what blocked you, or what decision you need next.
+title: "[Tryout] "
+body:
+  - type: markdown
+    attributes:
+      value: "Thanks for trying Jev Decision Gate. This is public: omit keys, private issues and customer data. / 这里是公开反馈，请勿上传密钥或私有数据。"
+  - type: dropdown
+    id: outcome
+    attributes:
+      label: Outcome / 结果
+      options:
+        - Offline demo completed / 离线演示已跑通
+        - Skill or MCP connected / 已接入 Skill 或 MCP
+        - Installation blocked / 安装遇到问题
+        - Used again on another day / 已在另一天再次使用
+        - Need a different decision task / 需要其他判断场景
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: What happened? / 使用情况
+      description: "Include OS, Python/host version and a sanitized command/result. Which task would make you use this again? / 请提供系统、版本、脱敏命令或结果，以及希望再次使用的场景。"
+    validations:
+      required: true
+  - type: dropdown
+    id: source
+    attributes:
+      label: Where did you find it? / 从哪里发现（可选）
+      options:
+        - GitHub search or recommendation
+        - Jev directory / Awesome list
+        - Skills directory or CLI
+        - X
+        - TypeSafe community
+        - Hacker News
+        - BPJ
+        - Other

@@ -89,5 +89,15 @@
   },
   "paid_service": "not_available",
   "interpretation": "Code tests and original synthetic fixtures establish mechanics only; no customer efficacy, Jev quality or net savings claim.",
-  "local_prepublication_wheel_sha256": "36a2a49dbb2dfaf64e52a53491ed3ba24418ca96d9b4772df2ebefd13b2c91be"
+  "local_prepublication_wheel_sha256": "36a2a49dbb2dfaf64e52a53491ed3ba24418ca96d9b4772df2ebefd13b2c91be",
+  "readme_walkthrough": {
+    "date": "2026-10-02",
+    "assets": [
+      "docs/assets/token-cost-en.gif",
+      "docs/assets/token-cost-zh-CN.gif"
+    ],
+    "evidence": "Dated provider list prices and hypothetical input-cost arithmetic, plus actual offline rules output; no live Jev comparison",
+    "skill_discovery": "DISABLE_TELEMETRY=1 npx --yes skills add f-tiger/jev-decision-gate --list: found bpj-decision-gate, exit 0",
+    "distribution": "Research and launch drafts prepared; no external community posts or directory submissions made"
+  }
 }

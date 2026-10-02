@@ -1,0 +1,24 @@
+{
+  "evidence_kind": "hypothetical_input_price_arithmetic_not_live_benchmark",
+  "price_as_of": "2026-10-02",
+  "hypothetical_input_tokens_each": 1000000,
+  "input_token_volume_ratio": 1,
+  "baseline_input_usd": 10.0,
+  "jev_input_usd": 0.042,
+  "baseline_to_jev_input_price_ratio": 238.0952380952381,
+  "input_price_reduction_percent": 99.58,
+  "lower_cost_baseline_to_jev_input_price_ratio": 23.80952380952381,
+  "assumed_fallback_input_fraction": 0.1,
+  "cascade_input_usd": 1.042,
+  "baseline_to_cascade_input_cost_ratio": 9.596928982725528,
+  "live_token_savings": null,
+  "live_quality": null,
+  "live_end_to_end_savings": null,
+  "exclusions": [
+    "output charges",
+    "retries",
+    "human review",
+    "infrastructure",
+    "taxes"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "as_of": "2026-10-02",
+  "evidence_kind": "public_list_price_snapshot_not_live_benchmark",
+  "currency": "USD",
+  "jev": {
+    "model": "jev-1.13.0",
+    "input_per_million": 0.042,
+    "output_per_million": 0,
+    "source": "https://docs.typesafe.ai/models"
+  },
+  "baseline": {
+    "model": "Claude Fable 5.1",
+    "input_per_million": 10,
+    "output_per_million": 50,
+    "cache_read_per_million": 0.25,
+    "source": "https://platform.claude.com/docs/en/about-claude/pricing"
+  },
+  "lower_cost_baseline": {
+    "model": "Claude Haiku 4.5",
+    "input_per_million": 1,
+    "output_per_million": 5,
+    "source": "https://platform.claude.com/docs/en/about-claude/pricing"
+  },
+  "illustration": {
+    "input_tokens_each": 1000000,
+    "fallback_input_fraction": 0.1,
+    "assumption": "Equal hypothetical billable input tokens, standard uncached synchronous API prices. The fallback scenario runs Jev first on all input and then Fable on an additional 10% of that input-token budget. Output charges, retries, review, taxes and infrastructure are excluded. No quality equivalence or real token reduction is assumed."
+  },
+  "live_comparison": {
+    "status": "not_run",
+    "jev_input_tokens": null,
+    "jev_output_tokens": null,
+    "baseline_input_tokens": null,
+    "baseline_output_tokens": null,
+    "quality_comparison": null,
+    "end_to_end_savings": null
+  }
+}

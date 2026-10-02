@@ -2,9 +2,15 @@
 
 [![Tests](https://github.com/f-tiger/jev-decision-gate/actions/workflows/test.yml/badge.svg)](https://github.com/f-tiger/jev-decision-gate/actions/workflows/test.yml)
 
-**用 Jev 帮程序员整理 Issue，把证据不足的判断留给人工。**
+**每百万输入 token，$10 → $0.042：更便宜的判断，能为你的工作流省多少？**
 
 [English](README.md) · [MCP 接入](docs/mcp.md) · [BPJ 开发者入口](https://baipiaoji.com/developers?utm_source=github&utm_medium=readme&utm_campaign=decision_gate)
+
+![费用对比动画：Fable 5.1 与 Jev 输入单价、token 用量区别、真实离线 Issue 案例和假设回退测算。单价测算不是 Jev 节省实测。](docs/assets/token-cost-zh-CN.gif)
+
+**相同的假设 token 用量，输入单价相差约 238 倍。** 按 2026-10-02 标准未缓存价格：[Claude Fable 5.1](https://platform.claude.com/docs/en/about-claude/pricing) 为 $10／百万输入 token，[Jev 1.13](https://docs.typesafe.ai/models) 为 $0.042；对比 Haiku 4.5 的 $1，差距为 23.8 倍。实际 token 数、质量和总节省仍待同任务实测。Jev 输出免费不代表输出 token 为零。
+
+[测算口径与来源](docs/token-cost.md) · [静态图](docs/assets/token-cost-zh-CN-poster.png) · [真实规则输出](docs/assets/demo-report.json)
 
 这是独立的 MIT 开源工具，首发面向仓库维护者和小型开发团队：输出 Issue 类型、模块和信息是否充分。提供 Python SDK、CLI、MCP 和 Skill。不会改标签、发评论或关闭 Issue。
 
@@ -24,6 +30,14 @@ bpj-gate demo --out demo-report.json --export-issues demo-issues.json
 ```
 
 Windows PowerShell 激活命令为 `.venv\Scripts\Activate.ps1`。演示不联网、不需要密钥，运行的是确定性规则基线；所有判断默认要求复核。再次运行请使用新的输出文件名，命令不会覆盖旧报告。
+
+无需密钥，也能复现动画中的价格计算：
+
+```bash
+python tools/price_scenario.py --input-tokens 1000000 --fallback-fraction 0.1
+```
+
+假设全部输入先经过 Jev，另有 10% 输入需调用 Fable：输入费用为 $0.042 + $1 = $1.042，对比全用 Fable 的 $10，相差约 9.6 倍。这是情景计算，未包含输出、重试和人工复核；本工具不会自动调用 Fable。[提交一次试用反馈或安装问题](https://github.com/f-tiger/jev-decision-gate/issues/new?template=tryout.yml)。
 
 ## 使用 Jev
 
@@ -59,6 +73,14 @@ bpj-gate-mcp --data-root /你的授权数据目录
 
 默认只允许本地规则。需要 Jev 时，由你明确添加 `--allow-jev` 并配置进程环境变量。完整配置见 [MCP 文档](docs/mcp.md)。Skill 源码在 `skills/bpj-decision-gate/`，按宿主支持的位置安装；复制 Skill 不代表自动接管宿主的全部模型路由。
 
+使用支持的 [Skills CLI](https://github.com/vercel-labs/skills) 安装：
+
+```bash
+npx skills add f-tiger/jev-decision-gate --skill bpj-decision-gate
+```
+
+已验证 `--list` 能发现该 Skill。安装时选择自己的 Agent。第三方 CLI 有独立的可选遥测，退出方式为 `DISABLE_TELEMETRY=1`，详见[官方说明](https://skills.sh/docs/cli)；本项目包自身没有遥测。
+
 ## 商业边界
 
 本地工具、MCP、Skill、测试和算法全部免费开源。TypeSafe 模型费用另计。持续评估、团队策略历史和托管运行是后续待验证的收费方向，本次没有开放该产品收款。BPJ 网站负责介绍与服务入口，不上传你的代码或日志。
@@ -66,3 +88,5 @@ bpj-gate-mcp --data-root /你的授权数据目录
 我们没有公开证据证明 Jev 客户“大部分是程序员”；开发者是根据其 API/SDK 分发方式选择的首批用户假设。先看真实安装、复用和询盘，不能把 Star、Fork 或网页点击当成收入。
 
 本项目不是 Jev 的开源复刻，也不与 TypeSafe 存在官方关联。原理和限制见 [评估方法](docs/evaluation.md)，测试与待完成事项见 [验证记录](docs/verification.json)。
+
+传播资料：[关联站点对比与 7 天验证方案](docs/growth-plan.zh-CN.md) · [中英文发布文案](docs/launch-kit.md)。项目由 AI 辅助实现，与 TypeSafe 无官方隶属关系。

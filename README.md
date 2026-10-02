@@ -2,9 +2,15 @@
 
 [![Tests](https://github.com/f-tiger/jev-decision-gate/actions/workflows/test.yml/badge.svg)](https://github.com/f-tiger/jev-decision-gate/actions/workflows/test.yml)
 
-**Triage GitHub Issues with Jev. Keep uncertain decisions in the review queue.**
+**$10 → $0.042 per million input tokens. What could cheaper decisions change in your workflow?**
 
 [中文](README.zh-CN.md) · [MCP setup](docs/mcp.md) · [Evaluation method](docs/evaluation.md) · [BPJ developer tools](https://baipiaoji.com/en/developers?utm_source=github&utm_medium=readme&utm_campaign=decision_gate)
+
+![Animated cost comparison: Fable 5.1 and Jev input prices, token-volume distinction, an actual offline Issue example, and a hypothetical fallback calculation. These are list prices, not measured Jev savings.](docs/assets/token-cost-en.gif)
+
+**About 238× difference in input price, with the same hypothetical token volume.** Standard uncached prices on 2026-10-02: [Claude Fable 5.1](https://platform.claude.com/docs/en/about-claude/pricing) $10/M input tokens; [Jev 1.13](https://docs.typesafe.ai/models) $0.042/M. Against Haiku 4.5 ($1/M), the ratio is 23.8×. Actual token counts, quality and total savings need a live comparison. Free Jev output does not mean zero output tokens.
+
+[Price math and assumptions](docs/token-cost.md) · [Static image](docs/assets/token-cost-en-poster.png) · [Actual rules output](docs/assets/demo-report.json)
 
 An independent MIT-licensed Python tool for repository maintainers. Run a rules baseline, optionally call TypeSafe's Jev, and calibrate which suggestions may be accepted. The first case predicts **issue kind, affected module and information sufficiency**. It never edits issues, applies labels, posts comments or closes tickets.
 
@@ -26,6 +32,14 @@ bpj-gate demo --out demo-report.json --export-issues demo-issues.json
 ```
 
 The demo runs locally without keys or network requests. It produces real output from a deliberately simple rules baseline. All items initially require review. Keep the report: compare on your own labels before choosing a provider. Commands refuse to overwrite existing output files.
+
+Reproduce the animation's price calculation without a key:
+
+```bash
+python tools/price_scenario.py --input-tokens 1000000 --fallback-fraction 0.1
+```
+
+This scenario is $0.042 for Jev input plus $1 for an extra 10% of that input sent to Fable, or $1.042 versus $10. The **9.6× input-cost ratio is hypothetical**, excludes output/retries/review, and does not imply this package calls Fable. [Share a successful run or a blocker](https://github.com/f-tiger/jev-decision-gate/issues/new?template=tryout.yml).
 
 ## Call Jev on selected issues
 
@@ -86,6 +100,14 @@ Jev is disabled by default in MCP. Add `--allow-jev --max-calls 20` at startup o
 
 Use the installable instructions under [`skills/bpj-decision-gate/`](skills/bpj-decision-gate/) in a compatible Skill host. Installation locations differ by host; this repository does not silently install or modify your host. The bundled Skill can run the same Python implementation without downloading project code during a task.
 
+For hosts supported by the [Skills CLI](https://github.com/vercel-labs/skills):
+
+```bash
+npx skills add f-tiger/jev-decision-gate --skill bpj-decision-gate
+```
+
+Discovery with `--list` has been verified. Choose your agent during installation. The third-party Skills CLI has its own optional telemetry; see [its documentation](https://skills.sh/docs/cli) for `DISABLE_TELEMETRY=1`. This package itself has no telemetry.
+
 ```python
 from bpj_decision_gate.triage import triage
 report = triage([{"id": "example-1", "title": "API error", "body": "Please investigate"}])
@@ -107,3 +129,5 @@ python tests/smoke_mcp.py
 Tests use mocks and synthetic fixtures, never paid APIs. [Verification status](docs/verification.json), [security boundaries](SECURITY.md), [contributing](CONTRIBUTING.md) and [roadmap](docs/roadmap.md). Contributions are welcome for independently labeled, redistributable cases, failure reports and controlled comparisons with a rules baseline. Keep private issues and credentials out of public contributions.
 
 Protocol reference: [TypeSafe API](https://docs.typesafe.ai/api), [models](https://docs.typesafe.ai/models), [MCP Python SDK](https://py.sdk.modelcontextprotocol.io/). Jev references describe interoperability; no affiliation is implied.
+
+Want to share it? Use the [launch copy and evidence links](docs/launch-kit.md). AI-assisted implementation; no official TypeSafe affiliation.
