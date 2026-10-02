@@ -57,17 +57,37 @@
     "Contract validation rejects malformed probabilities, model mismatch, unsupported labels, invalid usage and expected-label leakage.",
     "Wrong or insufficient evidence remains review; disjoint ID guard, disabled-call bypass, path boundaries and truthful synthetic labeling verified."
   ],
-  "wheel_sha256": "36a2a49dbb2dfaf64e52a53491ed3ba24418ca96d9b4772df2ebefd13b2c91be",
   "live_jev": {
     "status": "not_run",
     "reason": "TYPESAFE_API_KEY unavailable; no paid model calls made"
   },
-  "github_publication": "pending repository creation; CI configuration prepared, remote CI not yet run",
+  "github_publication": {
+    "status": "published",
+    "repository": "https://github.com/f-tiger/jev-decision-gate",
+    "source_commit": "b2e646cd9c6186169f49f9331259edb6e722519c",
+    "public_clone_install": "passed; rules demo completed from an unauthenticated public clone",
+    "ci": {
+      "run": "https://github.com/f-tiger/jev-decision-gate/actions/runs/36955430515",
+      "python": [
+        "3.11",
+        "3.12"
+      ],
+      "result": "success",
+      "checks": [
+        "24 unit tests",
+        "modern and legacy stdio MCP",
+        "package/Skill parity",
+        "offline CLI demo",
+        "wheel build and artifact upload"
+      ]
+    }
+  },
   "website_publication": "not_deployed; BPJ entry copy prepared and README links existing developer page",
   "registries": {
     "pypi": "not_published",
     "mcp_registry": "not_published"
   },
   "paid_service": "not_available",
-  "interpretation": "Code tests and original synthetic fixtures establish mechanics only; no customer efficacy, Jev quality or net savings claim."
+  "interpretation": "Code tests and original synthetic fixtures establish mechanics only; no customer efficacy, Jev quality or net savings claim.",
+  "local_prepublication_wheel_sha256": "36a2a49dbb2dfaf64e52a53491ed3ba24418ca96d9b4772df2ebefd13b2c91be"
 }

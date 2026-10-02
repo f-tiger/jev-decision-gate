@@ -1,5 +1,7 @@
 # Jev Decision Gate · BPJ 出品
 
+[![Tests](https://github.com/f-tiger/jev-decision-gate/actions/workflows/test.yml/badge.svg)](https://github.com/f-tiger/jev-decision-gate/actions/workflows/test.yml)
+
 **用 Jev 帮程序员整理 Issue，把证据不足的判断留给人工。**
 
 [English](README.md) · [MCP 接入](docs/mcp.md) · [BPJ 开发者入口](https://baipiaoji.com/developers?utm_source=github&utm_medium=readme&utm_campaign=decision_gate)

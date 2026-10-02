@@ -1,5 +1,7 @@
 # Jev Decision Gate · by BPJ
 
+[![Tests](https://github.com/f-tiger/jev-decision-gate/actions/workflows/test.yml/badge.svg)](https://github.com/f-tiger/jev-decision-gate/actions/workflows/test.yml)
+
 **Triage GitHub Issues with Jev. Keep uncertain decisions in the review queue.**
 
 [中文](README.zh-CN.md) · [MCP setup](docs/mcp.md) · [Evaluation method](docs/evaluation.md) · [BPJ developer tools](https://baipiaoji.com/en/developers?utm_source=github&utm_medium=readme&utm_campaign=decision_gate)
