@@ -1,6 +1,6 @@
 # Launch copy and evidence links
 
-Prepared 2026-10-02. **Drafts, not posted or submitted.** Select only channels where the maintainer participates and the current rules allow this format. This project was developed with AI assistance. It is independent of TypeSafe.
+Prepared 2026-10-02. **Social posts remain drafts. Two directory applications have been submitted; see [distribution status](distribution.md) for receipts and review status.** Select only channels where the maintainer participates and the current rules allow this format. This project was developed with AI assistance. It is independent of TypeSafe.
 
 ## The short pitch
 

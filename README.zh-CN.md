@@ -67,6 +67,8 @@ bpj-gate triage new-issues.json --provider jev --policy policy.json --out decisi
 
 ## 接入 MCP / Skill
 
+**[下载 MCP 安装包](https://github.com/f-tiger/jev-decision-gate/releases/tag/v0.3.0)**，适用于支持 MCPB 0.4 和 UV 的宿主。选择 Issue JSON 目录即可，Jev 默认关闭。已注册到[官方 MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.f-tiger%2Fjev-decision-gate/versions/0.3.0)，名称为 `io.github.f-tiger/jev-decision-gate`。[安装与收录状态](docs/distribution.md)。
+
 ```bash
 bpj-gate-mcp --data-root /你的授权数据目录
 ```

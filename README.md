@@ -92,6 +92,8 @@ The fixed threshold search uses an exact one-sided binomial bound with Bonferron
 
 ## MCP, Skill and Python
 
+**[Download the MCP bundle](https://github.com/f-tiger/jev-decision-gate/releases/tag/v0.3.0)** for hosts supporting MCPB 0.4 with UV. Choose your Issue JSON directory; Jev is off by default. Registered as `io.github.f-tiger/jev-decision-gate` in the [official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.f-tiger%2Fjev-decision-gate/versions/0.3.0). [Installation and distribution status](docs/distribution.md).
+
 ```bash
 bpj-gate-mcp --data-root /absolute/path/to/authorized-json
 ```

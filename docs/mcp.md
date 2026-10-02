@@ -2,7 +2,7 @@
 
 ## MCPB bundle
 
-The release workflow builds `jev-decision-gate-0.3.0.mcpb`, verifies the archive over stdio, publishes it to GitHub Releases, then registers `io.github.f-tiger/jev-decision-gate` with the official MCP Registry using GitHub OIDC. Check [publication status](distribution.md) for completed steps.
+Download [`jev-decision-gate-0.3.0.mcpb`](https://github.com/f-tiger/jev-decision-gate/releases/tag/v0.3.0) from the public release. It is registered as [`io.github.f-tiger/jev-decision-gate`](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.f-tiger%2Fjev-decision-gate/versions/0.3.0) with the official MCP Registry. The release includes `SHA256SUMS` and Registry metadata. [Publication and directory status](distribution.md).
 
 Import the bundle into a host supporting **MCPB manifest 0.4 with the UV runtime**, then choose an existing absolute directory containing your Issue JSON. UV may download Python and locked dependencies on first launch. Host support varies; the conventional setup below remains available. The bundle has been exercised on Linux; GUI host import, macOS and Windows have not been verified.
 

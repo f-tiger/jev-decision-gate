@@ -99,5 +99,58 @@
     "evidence": "Dated provider list prices and hypothetical input-cost arithmetic, plus actual offline rules output; no live Jev comparison",
     "skill_discovery": "DISABLE_TELEMETRY=1 npx --yes skills add f-tiger/jev-decision-gate --list: found bpj-decision-gate, exit 0",
     "distribution": "Research and launch drafts prepared; no external community posts or directory submissions made"
-  }
+  },
+  "mcpb_distribution": {
+    "status": "published_and_registered",
+    "version": "0.3.0",
+    "manifest_version": "0.4",
+    "runtime": "uv",
+    "archive_sha256": "7f9ad333215f436ccec337be31f9257977a765c6a47c33a5d206916f09beb17e",
+    "manifest_schema": "passed @anthropic-ai/mcpb@2.1.2",
+    "registry_schema": "passed official 2025-12-11 schema",
+    "archive_smoke_test": {
+      "platform": "Linux",
+      "python": "3.12.14",
+      "modes": [
+        "auto",
+        "legacy"
+      ],
+      "tools": 6,
+      "rules_issues_per_mode": 12,
+      "model_calls": 0,
+      "invalid_startup_configurations_rejected": 5
+    },
+    "gui_host_import": "not_tested",
+    "macos_windows": "not_tested",
+    "ci": "https://github.com/f-tiger/jev-decision-gate/actions/runs/36957975062",
+    "release": "https://github.com/f-tiger/jev-decision-gate/releases/tag/v0.3.0",
+    "registry_record": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.f-tiger%2Fjev-decision-gate/versions/0.3.0",
+    "registry_status": "active",
+    "public_release_download_sha256": "passed",
+    "registry_name_version_package_readback": "passed",
+    "ci_conclusion": "success"
+  },
+  "skills_cli_install": {
+    "status": "passed",
+    "source": "f-tiger/jev-decision-gate",
+    "skill": "bpj-decision-gate",
+    "scope": "isolated project",
+    "agent": "codex",
+    "installed_skill_demo": "passed; 12 synthetic issues; 8 jointly correct; all 12 review; zero model calls",
+    "third_party_cli_telemetry": "disabled for test installation",
+    "skills_sh_listing": "not_confirmed",
+    "independent_adoption_claimed": false
+  },
+  "directory_submissions": [
+    {
+      "repository": "heyjunpenn/awesome-jev",
+      "url": "https://github.com/heyjunpenn/awesome-jev/issues/72",
+      "status": "submitted_pending_review"
+    },
+    {
+      "repository": "hellogumbo/awesome-jev",
+      "url": "https://github.com/hellogumbo/awesome-jev/issues/152",
+      "status": "submitted_pending_review"
+    }
+  ]
 }

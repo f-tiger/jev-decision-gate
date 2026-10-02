@@ -7,12 +7,14 @@ Checked 2026-10-02. Installation, Registry registration and curated directory ac
 | Public source | Available | [Repository](https://github.com/f-tiger/jev-decision-gate) |
 | Skills CLI | Public-repository install and bundled rules demo verified | `npx skills add f-tiger/jev-decision-gate --skill bpj-decision-gate` |
 | skills.sh listing | Not confirmed | Listing/discovery is influenced by genuine CLI installs; no installs or rankings are fabricated |
-| GitHub MCPB release | Prepared; publication pending | [Release workflow](https://github.com/f-tiger/jev-decision-gate/actions/workflows/publish-mcp.yml) |
-| Official MCP Registry | Pending publication | Name: `io.github.f-tiger/jev-decision-gate` |
-| heyjunpenn/awesome-jev (jevbest) | Submission prepared; not sent yet | Maintainer review required |
-| hellogumbo/awesome-jev | Submission prepared; not sent yet | Maintainer review required |
+| GitHub MCPB release | Published v0.3.0 preview | [Release and downloads](https://github.com/f-tiger/jev-decision-gate/releases/tag/v0.3.0); public download SHA256 verified |
+| Official MCP Registry | Registered; active v0.3.0 | [Exact Registry record](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.f-tiger%2Fjev-decision-gate/versions/0.3.0); name/version/asset hash verified |
+| heyjunpenn/awesome-jev (jevbest) | Submitted; awaiting review | [Submission #72](https://github.com/heyjunpenn/awesome-jev/issues/72) |
+| hellogumbo/awesome-jev | Submitted; awaiting review | [Submission #152](https://github.com/hellogumbo/awesome-jev/issues/152) |
 | yibie/awesome-jev | Not submitted | Requires a category-file PR and regenerated README |
 | Smithery / other markets | Not submitted | Separate publisher/account and host requirements; official Registry registration does not guarantee listing |
+
+[Successful automated publication](https://github.com/f-tiger/jev-decision-gate/actions/runs/36957975062): verification → public release → OIDC registration → Registry readback.
 
 ## Release maintenance
 
