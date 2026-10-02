@@ -2,13 +2,15 @@
 
 [![Tests](https://github.com/f-tiger/jev-decision-gate/actions/workflows/test.yml/badge.svg)](https://github.com/f-tiger/jev-decision-gate/actions/workflows/test.yml)
 
-**每百万输入 token，$10 → $0.042：更便宜的判断，能为你的工作流省多少？**
+**用 Jev 分流 Issue，无需自己编写整套接入与复核流程。**
 
 [English](README.md) · [MCP 接入](docs/mcp.md) · [BPJ 开发者入口](https://baipiaoji.com/developers?utm_source=github&utm_medium=readme&utm_campaign=decision_gate)
 
-![费用对比动画：Fable 5.1 与 Jev 输入单价、token 用量区别、真实离线 Issue 案例和假设回退测算。单价测算不是 Jev 节省实测。](docs/assets/token-cost-zh-CN.gif)
+![三方对比动画：通用大模型 API、直接 Jev API、我们的 MCP。展示批量入口、校验、校准、复核和调用限制；模型单价与工具增量分开，额外 token 节省未实测。](docs/assets/token-cost-zh-CN.gif)
 
-**相同的假设 token 用量，输入单价相差约 238 倍。** 按 2026-10-02 标准未缓存价格：[Claude Fable 5.1](https://platform.claude.com/docs/en/about-claude/pricing) 为 $10／百万输入 token，[Jev 1.13](https://docs.typesafe.ai/models) 为 $0.042；对比 Haiku 4.5 的 $1，差距为 23.8 倍。实际 token 数、质量和总节省仍待同任务实测。Jev 输出免费不代表输出 token 为零。
+**为什么安装我们的工具？** 一次安装，获得批量 Issue 入口、字段与用量检查、独立校准、留出集评估和接受／复核建议，共 6 个 MCP 工具，也可作为 Skill 或 CLI 使用。[三种接法详细对比](docs/why-use-mcp.md)。
+
+**底层模型价格：相同的假设输入量，单价相差约 238 倍。** 按 2026-10-02 标准未缓存价格：[Claude Fable 5.1](https://platform.claude.com/docs/en/about-claude/pricing) 为 $10／百万输入 token，[Jev 1.13](https://docs.typesafe.ai/models) 为 $0.042；对比 Haiku 4.5 的 $1，差距为 23.8 倍。实际 token 数、质量和总节省仍待同任务实测。Jev 输出免费不代表输出 token 为零。直接 Jev 与我们的 MCP 使用相同的 Jev 单价；我们的额外 token 节省**尚未实测**，Agent 宿主 token 还可能另行计费。
 
 [测算口径与来源](docs/token-cost.md) · [静态图](docs/assets/token-cost-zh-CN-poster.png) · [真实规则输出](docs/assets/demo-report.json)
 

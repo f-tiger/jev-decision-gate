@@ -1,194 +1,143 @@
 #!/usr/bin/env python3
-"""Render the README walkthrough from actual offline output, with Pillow only.
-
-Run from any directory: python tools/render_readme_demo.py
-Set DEMO_CJK_FONT if Noto Sans CJK is installed somewhere else.
-This is a designed walkthrough of CLI results, not a recording of a product UI.
-"""
-from __future__ import annotations
-
+"""Illustrated LLM API / Jev API / our MCP comparison, not a live model benchmark."""
 import json
 import os
 from pathlib import Path
 import sys
-
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from jev_decision_gate.triage import triage  # noqa: E402
-from price_scenario import calculate, SNAPSHOT  # noqa: E402
+from jev_decision_gate.triage import triage
+from price_scenario import calculate, SNAPSHOT
 
 OUT = ROOT / "docs/assets"
 W, H = 900, 760
 BG, PANEL, BORDER = "#101923", "#1a2836", "#334554"
 TEXT, MUTED, GREEN, AMBER, CYAN = "#f2f5f3", "#b7c6ce", "#d4ff77", "#ffcc7b", "#8bdded"
-LATIN = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+FONT = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
 BOLD = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 MONO = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
 CJK = os.environ.get("DEMO_CJK_FONT", "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc")
 
 
-def font(size, zh=False, bold=False, mono=False):
-    return ImageFont.truetype(CJK if zh else MONO if mono else BOLD if bold else LATIN, size)
-
-
-def text(d, xy, value, size=28, color=TEXT, zh=False, bold=False, mono=False, width=810):
-    f = font(size, zh, bold, mono)
+def text(d, x, y, value, size=24, color=TEXT, zh=False, bold=False, mono=False, width=816):
+    f = ImageFont.truetype(CJK if zh else MONO if mono else BOLD if bold else FONT, size)
     if d.textlength(value, font=f) > width:
-        raise ValueError(f"Text exceeds card width: {value}")
-    d.text(xy, value, font=f, fill=color, anchor="lt")
+        raise ValueError(f"Text exceeds available width: {value}")
+    d.text((x, y), value, font=f, fill=color, anchor="lt")
 
 
-def box(d, bounds, fill=PANEL, outline=BORDER):
-    d.rounded_rectangle(bounds, radius=18, fill=fill, outline=outline, width=2)
+def box(d, bounds, active=False):
+    d.rounded_rectangle(bounds, radius=18, fill="#203124" if active else PANEL,
+                        outline=GREEN if active else BORDER, width=3 if active else 2)
 
 
-def frame(lang, scene, reveal, rows, summary):
+def frame(lang, scene, reveal, report, calc, prices):
     zh = lang == "zh-CN"
     im = Image.new("RGB", (W, H), BG)
     d = ImageDraw.Draw(im)
-    text(d, (42, 30), "JEV DECISION GATE", 23, GREEN, bold=True)
-    text(d, (740, 30), "by BPJ", 23, MUTED)
-    text(d, (42, 70),
-         "离线规则 · 合成案例 · 实际输出可复现" if zh else "OFFLINE RULES  /  SYNTHETIC CASES  /  REAL OUTPUT", 21, MUTED, zh)
-    headers = ["先把 Issue 整理清楚", "信息不够？留给人工", "误判也要看得见", "先运行，再决定是否接入"] if zh else ["Turn issues into clear suggestions.", "Missing context? Keep it in review.", "Make the misses visible, too.", "Try it before you integrate it."]
-    text(d, (42, 115), headers[scene], 36 if not zh else 42, TEXT, zh, bold=True)
+    text(d, 42, 29, "JEV DECISION GATE", 23, GREEN, bold=True)
+    text(d, 740, 29, "by BPJ", 23, MUTED)
+    titles = ["为什么装我们的 MCP？", "模型单价，与工具价值分开看", "把重复开发，变成安装即用", "先免费试跑，再决定是否接入", "给你的 Agent 装上这套工作流"] if zh else [
+        "A model API is only the starting point.", "Model pricing and our added value.",
+        "Four pieces you do not have to build.", "Try the workflow before paying for calls.",
+        "Give your agent the whole workflow."]
+    captions = ["同一批 Issue · 三种接法 · 同一分类目标",
+        "公开单价 · 假设输入量 · 非实测账单 · " + prices["as_of"],
+        "对比裸 API 接入 · 同样功能也可自行开发",
+        "本地规则 · 合成案例 · 实际输出 · 非 Jev 实测",
+        "开源 MIT · MCP / Skill / CLI · Jev 默认关闭"] if zh else [
+        "ONE ISSUE BATCH / THREE WAYS TO CONNECT",
+        "LIST PRICES / ASSUMED VOLUME / NOT A LIVE BILL / " + prices["as_of"],
+        "BARE APIs / EQUIVALENT WORKFLOWS CAN BE CUSTOM-BUILT",
+        "LOCAL RULES / SYNTHETIC CASES / NOT LIVE JEV RESULTS",
+        "OPEN SOURCE / MCP + SKILL + CLI / JEV OFF BY DEFAULT"]
+    text(d, 42, 71, captions[scene], 18 if scene == 1 and not zh else 20, MUTED, zh)
+    text(d, 42, 115, titles[scene], 38 if zh else 34, TEXT, zh, bold=True)
     if scene < 3:
-        row = rows[scene]
-        titles = ["会话过期后登录失败", "用不了", "窄屏下按钮消失"] if zh else [r["title"] for r in rows]
-        bodies = [
-            ["复现：登录 → 闲置一小时 → 返回页面报错", "预期：重新登录并建立新会话"],
-            ["正文：请修一下。", "缺少复现步骤、环境和预期行为"],
-            ["复现：设置页面缩窄到 300 px，保存按钮消失", "人工标注为 bug；规则只识别出了 ui 模块"],
-        ] if zh else [
-            ["Sign in, wait an hour, return: login error.", "Expected: start a fresh session."],
-            ["Body: Please fix this.", "No steps, environment or expected behavior."],
-            ["At 300 px wide, the save button disappears.", "Human label: bug. Rules identify only ui."],
-        ]
-        box(d, (42, 183, 858, 341))
-        text(d, (64, 202), f"{row['id']}  /  " + ("输入摘要" if zh else "ISSUE EXCERPT"), 20, MUTED, zh)
-        text(d, (64, 236), titles[scene], 31, TEXT, zh, bold=True, width=772)
-        for i, line in enumerate(bodies[scene]):
-            text(d, (64, 279 + 30 * i), line, 23, MUTED, zh, width=772)
-        for i, key in enumerate(["kind", "module", "information"]):
-            left = 42 + i * 278
-            box(d, (left, 365, left + 260, 469))
-            name = {"kind": "类型", "module": "模块", "information": "信息"}[key] if zh else key.upper()
-            text(d, (left + 19, 383), name, 20, MUTED, zh, width=225)
-            if reveal >= i + 1:
-                text(d, (left + 19, 419), row["prediction"][key], 28, GREEN if scene == 0 else CYAN, mono=True, width=225)
-            else:
-                text(d, (left + 19, 419), "...", 28, MUTED)
-        box(d, (42, 493, 858, 602), "#302b24", "#6b5737")
-        text(d, (64, 515), "REVIEW" if reveal >= 4 else "...", 30, AMBER, bold=True)
-        if reveal >= 4:
-            msg = "尚未校准，建议保留人工复核" if zh else "Uncalibrated: keep the human review step."
-            text(d, (64, 560), msg, 25, AMBER, zh, width=772)
-        notes = ["分类建议可检查，复核后再路由。", "unknown 和 missing 也是有用的结果。", "规则会漏判：先评估，再考虑自动接受。"] if zh else ["Inspect the suggestion before routing the issue.", "Unknown and missing are useful outputs.", "Rules miss cases. Evaluate before accepting."]
-        text(d, (42, 630), notes[scene], 25, TEXT, zh)
-    else:
-        box(d, (42, 190, 858, 347))
-        text(d, (64, 213), "安装后运行，无需 API 密钥" if zh else "AFTER INSTALLATION  /  NO API KEY", 23, MUTED, zh)
-        text(d, (64, 262), "$ jev-gate demo", 31, GREEN, mono=True)
-        text(d, (100, 303), "--out demo-report.json", 26, TEXT, mono=True)
-        values = [str(summary["issues"]), f"{sum(r['correct'] for r in summary['all_rows'])}/{summary['issues']}", str(summary["review"])]
-        names = ["合成案例", "三项全对", "仍需复核"] if zh else ["SYNTHETIC CASES", "JOINTLY CORRECT", "NEED REVIEW"]
-        for i, (value, name) in enumerate(zip(values, names)):
-            left = 42 + i * 278
-            box(d, (left, 370, left + 260, 499))
-            text(d, (left + 19, 390), value if reveal >= i + 1 else "...", 43, GREEN, bold=True)
-            text(d, (left + 19, 456), name, 19, MUTED, zh, width=226)
-        text(d, (42, 530), "接入方式：CLI / MCP / Skill / Python" if zh else "CLI  /  MCP  /  SKILL  /  PYTHON", 29, TEXT, zh)
-        text(d, (42, 577), "用你自己的标注数据，对比规则与 Jev。" if zh else "Compare rules and Jev on your labeled issues.", 27, CYAN, zh)
-        text(d, (42, 622), "Jev 实测待完成；当前演示不会修改 GitHub。" if zh else "Live Jev results pending. No GitHub edits.", 24, MUTED, zh)
-    d.line((42, 686, 858, 686), fill=BORDER, width=2)
-    labels = ["分类", "缺信息", "误判", "试用"] if zh else ["CLASSIFY", "MISSING", "MISSED", "TRY IT"]
-    for i, label in enumerate(labels):
-        x = 42 + 207 * i
-        if i == scene:
-            d.rounded_rectangle((x, 684, x + 176, 689), radius=2, fill=GREEN)
-        text(d, (x, 707), f"{i + 1:02}  {label}", 20, GREEN if i == scene else MUTED, zh)
-    return im
-
-
-def cost_frame(lang, scene, reveal, rows, summary, prices, calc):
-    """Public price math stays visually separate from the actual rules example."""
-    zh = lang == "zh-CN"
-    if scene == 2:
-        im = frame(lang, 0, reveal, rows, summary)
-    elif scene == 4:
-        im = frame(lang, 3, reveal, rows, summary)
-    else:
-        im = Image.new("RGB", (W, H), BG)
-        d = ImageDraw.Draw(im)
-        text(d, (42, 30), "JEV DECISION GATE", 23, GREEN, bold=True)
-        text(d, (740, 30), "by BPJ", 23, MUTED)
-        text(d, (42, 70), "公开单价测算 · 非 API 实测 · 2026-10-02" if zh else "LIST-PRICE MATH / NOT A LIVE TEST / 2026-10-02", 21, MUTED, zh)
+        names = ["大模型 API", "直接 Jev", "我们的 MCP"] if zh else ["LLM API", "DIRECT JEV", "OUR MCP"]
+        subs = ["Fable 5.1", "TypeSafe Jev", "Jev Decision Gate"]
+        for i in range(3):
+            x = 42 + 278 * i
+            box(d, (x, 182, x + 260, 589), i == 2)
+            text(d, x + 18, 204, names[i], 27, GREEN if i == 2 else TEXT, zh, bold=True, width=224)
+            text(d, x + 18, 244, subs[i], 19, MUTED, width=224)
         if scene == 0:
-            text(d, (42, 118), "同样的输入 token，账单差多少？" if zh else "Same input tokens. A different bill.", 38 if zh else 36, TEXT, zh, bold=True)
-            text(d, (42, 186), f"{calc['baseline_to_jev_input_price_ratio']:.0f}×", 100, GREEN, bold=True)
-            text(d, (365, 204), "输入单价之比" if zh else "INPUT PRICE RATIO", 29, TEXT, zh, bold=True, width=490)
-            text(d, (365, 254), "Fable 5.1 / Jev 1.13" , 25, MUTED, width=490)
-            text(d, (42, 331), "按双方各 1,000,000 输入 token 计算" if zh else "Assume 1,000,000 input tokens on each side", 26, MUTED, zh)
-            for i, (label, value, color) in enumerate([
-                ("Claude Fable 5.1", calc["baseline_input_usd"], CYAN),
-                ("Jev 1.13", calc["jev_input_usd"], GREEN),
-            ]):
-                y = 390 + i * 106
-                text(d, (42, y), label, 27, TEXT)
-                text(d, (660, y), f"${value:.3f}" if i else f"${value:.2f}", 31, color, bold=True, width=198)
-                d.rounded_rectangle((42, y + 48, 858, y + 70), radius=5, fill=PANEL)
-                ratio = value / calc["baseline_input_usd"]
-                # Same linear dollar scale. The small Jev bar is not inflated.
-                length = round(816 * ratio * ((reveal + 1) / 5))
-                if length > 0:
-                    d.rectangle((42, y + 48, 42 + length, y + 70), fill=color)
-            text(d, (42, 617), "标准未缓存输入价；不等于 token 数减少 238 倍。" if zh else "Uncached input price. NOT 238× fewer tokens.", 25, AMBER, zh)
+            heads = ["模型接口", "判断接口", "现成工作流"] if zh else ["MODEL API", "DECISION API", "WORKFLOW"]
+            columns = [["生成文本或 JSON", "自写任务逻辑", "自写检查与评估"],
+                       ["输出结构化判断", "自写任务逻辑", "自写检查与评估"],
+                       ["6 个现成 MCP 工具", "接入、校验、校准", "不确定的留给复核"]] if zh else [
+                       ["Text or JSON", "Build task logic", "Build checks + evals"],
+                       ["Typed judgments", "Build task logic", "Build checks + evals"],
+                       ["6 MCP tools", "Connect + validate", "Calibrate + review"]]
+            for i in range(3):
+                text(d, 60 + 278 * i, 303, heads[i], 25, GREEN if i == 2 else CYAN, zh, bold=True, width=224)
+                for j, value in enumerate(columns[i]):
+                    if reveal >= j:
+                        text(d, 60 + 278 * i, 370 + 58 * j, value, 23 if zh else 20,
+                             GREEN if i == 2 else TEXT, zh, width=224)
+            text(d, 42, 618, "Jev 提供判断；我们的 MCP 提供可直接接入的流程。" if zh else "Jev supplies judgments. Our MCP supplies the workflow.", 26 if zh else 25, TEXT, zh)
+            text(d, 42, 658, "类型、模块、信息是否充分 → 接受或复核" if zh else "Kind, module, information → accept or review", 23, MUTED, zh)
         elif scene == 1:
-            text(d, (42, 118), "分清用量和单价，才知道省在哪" if zh else "Token volume and price are separate.", 38 if zh else 35, TEXT, zh, bold=True)
-            box(d, (42, 186, 858, 487))
-            text(d, (360, 207), "Fable 5.1", 27, CYAN)
-            text(d, (655, 207), "Jev 1.13", 27, GREEN)
-            data = [
-                ("假设输入量" if zh else "Assumed input", "1,000,000", "1,000,000"),
-                ("输入 / 百万" if zh else "Input / 1M", "$10", "$0.042"),
-                ("输出 / 百万" if zh else "Output / 1M", "$50", "$0"),
-                ("实际用量" if zh else "Live usage", "待实测" if zh else "pending", "待实测" if zh else "pending"),
-            ]
-            for i, (label, a, b) in enumerate(data):
-                y = 265 + i * 51
-                text(d, (62, y), label, 25, MUTED, zh, width=285)
-                text(d, (360, y), a, 25, TEXT, zh, width=270)
-                if reveal >= i + 1:
-                    text(d, (655, y), b, 25, GREEN, zh, width=185)
-            text(d, (42, 518), "对比 Haiku 4.5：输入单价相差 23.8×" if zh else "Against Haiku 4.5: 23.8× input-price ratio", 29, TEXT, zh)
-            text(d, (42, 565), "Jev 输出免费，不代表输出 token 为零。" if zh else "Free output does not mean zero output tokens.", 26, AMBER, zh)
-            text(d, (42, 612), "真实请求长度、质量、缓存和回退都要测量。" if zh else "Measure request size, quality, cache and fallback.", 24, MUTED, zh)
+            values = [calc["baseline_input_usd"], calc["jev_input_usd"], calc["jev_input_usd"]]
+            for i, value in enumerate(values):
+                x = 60 + 278 * i
+                charge = "$" + (f"{value:.0f}" if i == 0 else f"{value:.3f}")
+                text(d, x, 298, charge, 59 if i == 0 else 47, GREEN if i == 2 else CYAN, bold=True, width=224)
+                detail = (["1M 假设输入 token", "模型输入费用"] if i < 2 else ["1M 输入交给 Jev", "+ 宿主模型费用"]) if zh else (
+                         ["1M assumed input", "Model input charge"] if i < 2 else ["1M input to Jev", "+ host model cost"])
+                for j, line in enumerate(detail):
+                    text(d, x, 389 + 34 * j, line, 22 if zh else 20, TEXT, zh, width=224)
+                labels = ["仅作为价格参照", "直接调用即享此价", "MCP 本地工具免费"] if zh else ["Price reference only", "Jev's own pricing", "Local MCP is free"]
+                if reveal >= 2:
+                    text(d, x, 516, labels[i], 21 if zh else 20, GREEN if i == 2 else AMBER, zh, width=224)
+            text(d, 42, 611, "对比直接 Jev，我们的额外 token 节省尚未实测。" if zh else "Extra token savings over direct Jev: NOT MEASURED.", 25, AMBER, zh)
+            text(d, 42, 649, "相同 Jev 单价；宿主上下文、输出、重试等另计。" if zh else "Same Jev price. Host context, output and retries add cost.", 22, MUTED, zh)
+            text(d, 42, 679, "低价 LLM 参照：Haiku 4.5 输入 $1/M；详见价格来源。" if zh else "Lower-cost LLM reference: Haiku 4.5 input $1/M. Sources in README.", 18, MUTED, zh)
         else:
-            text(d, (42, 118), "加上回退，收益会怎样变化？" if zh else "What if some decisions need an LLM?", 38 if zh else 35, TEXT, zh, bold=True)
-            text(d, (42, 184), "假设 10% 的输入还需调用 Fable 5.1" if zh else "Assume 10% of input also goes to Fable 5.1", 27, MUTED, zh)
-            for i, (label, value, color) in enumerate([
-                ("Jev：处理全部输入" if zh else "Jev on all input", f"${calc['jev_input_usd']:.3f}", GREEN),
-                ("Fable：额外处理 10%" if zh else "Fable on an extra 10%", "$1.000", CYAN),
-            ]):
-                box(d, (42, 245 + i * 94, 858, 326 + i * 94))
-                text(d, (64, 272 + i * 94), label, 27, TEXT, zh, width=570)
-                text(d, (665, 270 + i * 94), value if reveal >= i + 1 else "...", 31, color, bold=True, width=180)
-            text(d, (42, 449), f"${calc['cascade_input_usd']:.3f}", 72, GREEN, bold=True)
-            text(d, (435, 470), f"{calc['baseline_to_cascade_input_cost_ratio']:.1f}× " + ("输入费用之比" if zh else "cost ratio"), 32, TEXT, zh, width=420)
-            text(d, (42, 554), "对照基准：只用 Fable 的输入费用 $10" if zh else "Baseline: $10 input cost for Fable alone", 27, TEXT, zh)
-            text(d, (42, 603), "仅情景计算，未含输出、重试或人工复核。" if zh else "Scenario only. Excludes output, retries, review.", 25, AMBER, zh)
-            text(d, (42, 645), "复核队列不会自动调用 Fable。" if zh else "This tool does not call Fable automatically.", 21, MUTED, zh)
-    d = ImageDraw.Draw(im)
-    d.rectangle((0, 680, W, H), fill=BG)
-    d.line((42, 686, 858, 686), fill=BORDER, width=2)
-    labels = ["价格", "用量", "案例", "回退", "试用"] if zh else ["PRICE", "TOKENS", "CASE", "FALLBACK", "TRY IT"]
+            generic = ["自写批量入口", "自写任务检查", "自写接受 / 复核", "自行设置调用限制"] if zh else ["Build batch entry", "Build task checks", "Build accept/review", "Configure call cap"]
+            ours = ["批量 Issue JSON", "任务字段、用量检查", "独立校准 + 复核", "每次调用数量上限"] if zh else ["Batch Issue JSON", "Fields + usage checks", "Calibration + review", "Per-invocation cap"]
+            for i in range(3):
+                for j, value in enumerate(ours if i == 2 else generic):
+                    if reveal >= j:
+                        text(d, 60 + 278 * i, 299 + 68 * j, value, 23 if zh else 19,
+                             GREEN if i == 2 else MUTED, zh, width=224)
+            text(d, 42, 618, "省去重复接入与检查代码；质量与额外节省仍需实测。" if zh else "Skip repeat integration work. Measure quality and savings.", 25, TEXT, zh)
+            text(d, 42, 657, "review 不会自动调用另一个模型，也不会修改 Issue。" if zh else "Review does not call another model or modify Issues.", 23, MUTED, zh)
+    elif scene == 3:
+        box(d, (42, 183, 858, 337))
+        text(d, 64, 204, "示例 MCP 调用 · 实际本地规则输出" if zh else "EXAMPLE MCP REQUEST / ACTUAL LOCAL RULES OUTPUT", 22, MUTED, zh)
+        text(d, 64, 247, 'triage_issues(issues_file="issues.json",', 26, GREEN, mono=True)
+        text(d, 64, 289, '              provider="rules")', 26, GREEN, mono=True)
+        values = [str(report["summary"]["issues"]), f"{sum(r['correct'] for r in report['rows'])}/{report['summary']['issues']}", str(report["summary"]["review"])]
+        labels = ["合成案例", "三项全对", "需要人工复核"] if zh else ["SYNTHETIC CASES", "JOINTLY CORRECT", "REQUIRE REVIEW"]
+        for i, (value, label) in enumerate(zip(values, labels)):
+            x = 42 + 278 * i
+            box(d, (x, 364, x + 260, 497), i == 2)
+            text(d, x + 19, 389, value, 48, GREEN, bold=True, width=222)
+            text(d, x + 19, 458, label, 23 if zh else 19, TEXT, zh, width=222)
+        text(d, 42, 534, "后端模型调用 0 次 · 后端 token 0 · 无需密钥" if zh else "0 provider calls / 0 provider tokens / no API key", 28, GREEN, zh)
+        text(d, 42, 584, "这是规则模式试跑，不是 Jev 的质量或节省证明。" if zh else "A rules-mode trial, not evidence of Jev quality or savings.", 25, AMBER, zh)
+        text(d, 42, 632, "先看失败案例，再用自己的标注数据做校准。" if zh else "Inspect the misses. Calibrate on your own labeled cases.", 25, TEXT, zh)
+        text(d, 42, 673, "Agent 宿主读取工具说明、参数和结果的 token 仍可能计费。" if zh else "Agent-host tokens for tool descriptions, arguments and results may still be billed.", 19 if zh else 18, MUTED, zh)
+    else:
+        box(d, (42, 190, 858, 365), True)
+        text(d, 64, 214, "安装到支持的 Agent" if zh else "INSTALL IN A COMPATIBLE AGENT", 23, MUTED, zh)
+        text(d, 64, 264, "npx skills add f-tiger/jev-decision-gate " + chr(92), 27, GREEN, mono=True, width=772)
+        text(d, 64, 309, "  --skill jev-decision-gate", 27, GREEN, mono=True, width=772)
+        text(d, 42, 405, "或下载 MCPB，接入支持的 MCP 宿主" if zh else "Or download the MCPB for a compatible host", 30, TEXT, zh)
+        text(d, 42, 456, "选择 Issue JSON → 先跑规则 → 检查复核结果" if zh else "Choose Issue JSON → run rules → inspect the review queue", 25 if zh else 24, CYAN, zh)
+        text(d, 42, 524, "直接获得一套可运行的 Issue 分流流程。" if zh else "Get a working Issue-triage process for your agent.", 30 if zh else 29, GREEN, zh)
+        text(d, 42, 585, "Jev 默认关闭；启用后由 TypeSafe 收取模型费用。" if zh else "Jev is off by default. TypeSafe bills enabled model calls.", 24, MUTED, zh)
+        text(d, 42, 636, "github.com/f-tiger/jev-decision-gate", 29, TEXT, mono=True)
+    d.line((42, 710, 858, 710), fill=BORDER, width=2)
+    labels = ["三种接法", "费用", "工具增量", "试跑", "安装"] if zh else ["COMPARE", "COST", "WHY MCP", "TRY IT", "INSTALL"]
     for i, label in enumerate(labels):
         x = 42 + 166 * i
         if i == scene:
-            d.rounded_rectangle((x, 684, x + 145, 689), radius=2, fill=GREEN)
-        text(d, (x, 707), f"{i + 1:02} {label}", 18, GREEN if i == scene else MUTED, zh)
+            d.rounded_rectangle((x, 708, x + 146, 713), radius=2, fill=GREEN)
+        text(d, x, 729, f"{i + 1:02} {label}", 18, GREEN if i == scene else MUTED, zh)
     return im
 
 
@@ -196,38 +145,34 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     issues = json.loads((ROOT / "examples/issues.synthetic.json").read_text())
     report = triage(issues, provider="rules")
-    # Exclude variable runtime measurements: the illustration makes no speed claim.
     for row, issue in zip(report["rows"], issues):
         row.pop("latency_ms", None)
         row["title"], row["body"] = issue["title"], issue["body"]
     report["provenance"] = "Actual offline rules output on original synthetic fixtures; English inputs; Chinese captions are translations. Not live Jev output or a product UI recording."
     report["fixture"] = "examples/issues.synthetic.json"
     (OUT / "demo-report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
-    selected = [report["rows"][i] for i in [0, 4, 6]]
-    summary = {**report["summary"], "all_rows": report["rows"]}
     prices = json.loads(SNAPSHOT.read_text())
     calc = calculate(prices)
     (OUT / "price-scenario.json").write_text(json.dumps(calc, indent=2) + "\n")
-    for lang in ["en", "zh-CN"]:
+    for lang in ("en", "zh-CN"):
         frames, durations, settled = [], [], []
         for scene in range(5):
             for reveal in range(5):
-                image = cost_frame(lang, scene, reveal, selected, summary, prices, calc)
-                frames.append(image.quantize(colors=96, method=Image.Quantize.MEDIANCUT))
-                durations.append(400 if reveal < 4 else 4800)
-            settled.append(image)
+                im = frame(lang, scene, reveal, report, calc, prices)
+                frames.append(im.quantize(colors=96, method=Image.Quantize.MEDIANCUT))
+                durations.append(500 if reveal < 4 else 5000)
+            settled.append(im)
         path = OUT / f"token-cost-{lang}.gif"
         frames[0].save(path, save_all=True, append_images=frames[1:], duration=durations, loop=0, optimize=True, disposal=1)
         settled[0].save(OUT / f"token-cost-{lang}-poster.png", optimize=True)
         print(f"{path.relative_to(ROOT)}: {path.stat().st_size:,} bytes")
-        # Contact sheet is an ephemeral QA artifact, not a repository asset.
-        qa = os.environ.get("DEMO_QA_DIR")
-        if qa:
+        if qa := os.environ.get("DEMO_QA_DIR"):
             dest = Path(qa)
             dest.mkdir(parents=True, exist_ok=True)
             sheet = Image.new("RGB", (W * 2, H * 3), BG)
             for i, still in enumerate(settled):
                 sheet.paste(still, ((i % 2) * W, (i // 2) * H))
+                still.save(dest / f"{lang}-scene-{i}.png")
             sheet.save(dest / f"contact-{lang}.png")
             settled[0].resize((390, 329), Image.Resampling.LANCZOS).save(dest / f"mobile-{lang}.png")
 

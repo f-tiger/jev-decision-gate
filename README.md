@@ -2,13 +2,15 @@
 
 [![Tests](https://github.com/f-tiger/jev-decision-gate/actions/workflows/test.yml/badge.svg)](https://github.com/f-tiger/jev-decision-gate/actions/workflows/test.yml)
 
-**$10 → $0.042 per million input tokens. What could cheaper decisions change in your workflow?**
+**Use Jev for Issue triage without building the whole integration and review workflow.**
 
 [中文](README.zh-CN.md) · [MCP setup](docs/mcp.md) · [Evaluation method](docs/evaluation.md) · [BPJ developer tools](https://baipiaoji.com/en/developers?utm_source=github&utm_medium=readme&utm_campaign=decision_gate)
 
-![Animated cost comparison: Fable 5.1 and Jev input prices, token-volume distinction, an actual offline Issue example, and a hypothetical fallback calculation. These are list prices, not measured Jev savings.](docs/assets/token-cost-en.gif)
+![Three-way comparison: general LLM API, direct Jev API and our MCP. Our package supplies batch triage, validation, calibration, review and call limits. Model prices are separate from tool value; extra token savings are unmeasured.](docs/assets/token-cost-en.gif)
 
-**About 238× difference in input price, with the same hypothetical token volume.** Standard uncached prices on 2026-10-02: [Claude Fable 5.1](https://platform.claude.com/docs/en/about-claude/pricing) $10/M input tokens; [Jev 1.13](https://docs.typesafe.ai/models) $0.042/M. Against Haiku 4.5 ($1/M), the ratio is 23.8×. Actual token counts, quality and total savings need a live comparison. Free Jev output does not mean zero output tokens.
+**Why install ours?** Get six MCP tools for local Issue batches, task/usage checks, independent calibration, held-out evaluation and accept/review recommendations. The same workflow is available as a Skill or CLI. [LLM vs direct Jev vs our MCP](docs/why-use-mcp.md).
+
+**Underlying model prices: about 238× difference, with the same hypothetical input volume.** Standard uncached prices on 2026-10-02: [Claude Fable 5.1](https://platform.claude.com/docs/en/about-claude/pricing) $10/M input tokens; [Jev 1.13](https://docs.typesafe.ai/models) $0.042/M. Against Haiku 4.5 ($1/M), the ratio is 23.8×. Actual token counts, quality and total savings need a live comparison. Free Jev output does not mean zero output tokens. Direct Jev and our MCP share this Jev price; additional token savings caused by our MCP are **not measured**, and agent-host tokens may add cost.
 
 [Price math and assumptions](docs/token-cost.md) · [Static image](docs/assets/token-cost-en-poster.png) · [Actual rules output](docs/assets/demo-report.json)
 

@@ -10,21 +10,21 @@ Jev Decision Gate is an open-source Python/MCP/Skill tool for GitHub Issue triag
 
 > $10 vs $0.042 per million input tokens: Fable 5.1 and Jev's standard uncached prices. That's a 238× price gap—not 238× fewer tokens.
 >
-> I built an open-source Issue-triage MCP + Skill to explore what survives in a real workflow. The README has the price math, an offline case, and a fallback scenario. Live Jev savings are still unmeasured.
+> I built an open-source Issue-triage MCP + Skill to explore what survives in a real workflow. The README compares a bare LLM API, direct Jev and our ready-made MCP workflow. Direct Jev gets the same model price; our extra token savings are unmeasured. Cost math and an offline case are included.
 >
 > Try it: https://github.com/f-tiger/jev-decision-gate
 
 Attach `docs/assets/token-cost-en.gif`. Keep the price qualifier in the post when cropping a frame. The author should review and personalize the wording before posting.
 
-## X / community: workflow-led alternative
+## X / community: workflow-led version (primary)
 
 > Your issue classifier can return valid JSON and still be wrong.
 >
-> Jev Decision Gate keeps classification, missing-information checks and acceptance policy separate. Run the offline baseline, inspect the failures, then bring your own labeled cases. Python, MCP and Skill; MIT.
+> Direct Jev gives you typed judgments. Jev Decision Gate adds batch Issue input, response checks, acceptance calibration and review recommendations in six MCP tools. Install the workflow, try it without a key, then bring your own labeled cases. MIT.
 >
 > https://github.com/f-tiger/jev-decision-gate
 
-Compare this framing with the cost-led version in separate, comparable windows. A single post's outcome is not a randomized A/B test.
+Lead with the workflow version so users can see why to install this project. Test cost-led framing in a separate, comparable window. A single post's outcome is not a randomized A/B test.
 
 ## Show HN
 
@@ -36,7 +36,7 @@ Author comment draft:
 
 > I wanted a small way to test whether typed decisions fit repeated issue triage. This developer preview predicts kind, module and whether information is sufficient, then keeps uncertain decisions for review. It never changes GitHub issues.
 >
-> You can try the rules baseline without an account or key. The README animation compares dated list prices, not live savings. Its actual offline fixture has 8/12 jointly correct predictions and all 12 in review; live Jev-versus-LLM results remain pending. The code includes the Jev HTTP adapter and a separate calibration/evaluation workflow.
+> You can try the rules baseline without an account or key. The README animation compares bare LLM and Jev APIs with the included MCP workflow, then separates dated model prices from our added features; it does not claim live savings. Its actual offline fixture has 8/12 jointly correct predictions and all 12 in review; live Jev-versus-LLM results remain pending. The code includes the Jev HTTP adapter and a separate calibration/evaluation workflow.
 >
 > AI assisted with the implementation. I'm interested in installation blockers and examples where the taxonomy or abstention policy does not fit your workflow.
 
@@ -58,9 +58,9 @@ For yibie/awesome-jev, follow its one-entry/one-category rule and supply runnabl
 
 ## 中文短文案
 
-> 同样 100 万输入 token，Fable 5.1 是 $10，Jev 是 $0.042，公开输入单价相差约 238 倍。真正接入后能省多少，还取决于判断质量、回退、缓存和实际用量。
+> 直接调用 Jev 能得到结构化判断，批量接入、结果检查和复核策略仍需要开发。Jev Decision Gate 把这些做成六个现成 MCP 工具，也可通过 Skill 安装。
 >
-> 我们做了 Jev Decision Gate：用 Issue 分类做一个可复现的 MCP / Skill 案例，README 动画展示单价、规则结果和回退测算。无需密钥可以先跑离线版；真实 Jev 节省仍待实测。
+> README 用“大模型／直接 Jev／我们的 MCP”三栏演示区别。无需密钥先跑本地规则，再用自己的数据校准。直接 Jev 和我们的 MCP 使用相同的模型单价；MCP 额外节省多少 token 仍待实测。
 >
 > https://github.com/f-tiger/jev-decision-gate
 
@@ -70,4 +70,4 @@ Suggested About description: `Issue triage with Jev, calibrated acceptance, and 
 
 Suggested topics: `jev`, `typesafe-ai`, `mcp`, `agent-skills`, `issue-triage`, `llm-evaluation`, `developer-tools`, `python`.
 
-Suggested social preview: the static English price poster, cropped only if the model names, price scope and date remain legible. About/topics/social-preview settings are proposals; this update does not claim they were applied.
+Suggested social preview: the static English three-way comparison poster, keeping all three columns and the workflow distinction legible. About/topics/social-preview settings are proposals; this update does not claim they were applied.

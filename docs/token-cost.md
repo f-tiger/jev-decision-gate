@@ -1,6 +1,10 @@
 # Token volume, token price, and actual savings
 
-The README animation separates three kinds of evidence: official list prices, hypothetical arithmetic, and real offline rules output. **No live Jev-versus-LLM comparison has been run.** The illustration is not a screen recording of an existing dashboard.
+The README animation compares general LLM APIs, direct Jev and our MCP on the same Issue-triage goal. It separates existing workflow features, official list prices, hypothetical arithmetic, and real offline rules output. **No live Jev-versus-LLM comparison has been run.** The illustration is not a screen recording of an existing dashboard.
+
+## The MCP contribution
+
+Our MCP provides the existing batch triage, task/usage validation, independent calibration, held-out evaluation and accept/review workflow. It uses the same Jev model pricing as direct Jev. It does not provide a measured extra token reduction over direct Jev; agent-host tool descriptions, arguments, results and reasoning may add tokens and costs. See the [three-way comparison](why-use-mcp.md).
 
 ## The price comparison
 
@@ -42,9 +46,9 @@ Ten percent refers to **input-token volume**, not necessarily 10% of issues. Out
 
 ## What the case actually proves
 
-The case frame uses `demo-01` from the original English synthetic fixtures: the actual rules result is `bug / auth / sufficient`, with action `review` because the gate is uncalibrated. Across all 12 toy cases, eight match all three expected fields; all 12 remain in review. [Inspect every row](assets/demo-report.json), including the failures. Chinese captions translate the example; they are not a Chinese-model benchmark.
+The trial frame summarizes all 12 original English synthetic fixtures. Eight match all three expected fields; all 12 remain in review because the gate is uncalibrated. [Inspect every row](assets/demo-report.json), including the failures. Chinese captions translate the example; they are not a Chinese-model benchmark.
 
-The offline rules demo has zero model calls. Comparing that zero to a paid model and advertising infinite savings would be misleading. The public-price illustration and rules demo deliberately have different evidence labels.
+The offline rules demo has zero backend/provider model calls; an agent-host model may still consume tokens to invoke it and read its results. Comparing that zero to a paid model and advertising infinite savings would be misleading. The public-price illustration and rules demo deliberately have different evidence labels.
 
 ## What is needed for an actual savings claim
 
@@ -67,4 +71,4 @@ This reruns the offline baseline and reads the price snapshot; it never calls pa
 
 ## 中文口径
 
-首屏的 238 倍是 **Fable 5.1 与 Jev 的未缓存输入单价之比**，不是我们实测减少了 238 倍 token。动画使用双方各 100 万输入 token 的假设；Jev 输出免费，但不应把它写成零输出 token。10% 回退也是情景假设，不是当前自动接受率。项目的真实模型效果、token 用量与端到端费用仍待配对实测。复现价格计算无需密钥，运行 Jev 需要用户自己的 TypeSafe 密钥。
+三栏动画先说明 LLM API、直接 Jev 与我们的 MCP 的工作流差异。价格页的 238 倍是 **Fable 5.1 与 Jev 的未缓存输入单价之比**，不是我们实测减少了 238 倍 token。动画使用双方各 100 万输入 token 的假设；Jev 输出免费，但不应把它写成零输出 token。10% 回退也是情景假设，不是当前自动接受率。项目的真实模型效果、token 用量与端到端费用仍待配对实测。复现价格计算无需密钥，运行 Jev 需要用户自己的 TypeSafe 密钥。

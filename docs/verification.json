@@ -96,9 +96,36 @@
       "docs/assets/token-cost-en.gif",
       "docs/assets/token-cost-zh-CN.gif"
     ],
-    "evidence": "Dated provider list prices and hypothetical input-cost arithmetic, plus actual offline rules output; no live Jev comparison",
+    "evidence": "Dated provider list prices and hypothetical input-cost arithmetic, plus actual offline rules output. Direct Jev and our MCP use the same Jev unit price; additional MCP token savings and live three-way totals are unmeasured.",
     "skill_discovery": "DISABLE_TELEMETRY=1 npx --yes skills add f-tiger/jev-decision-gate --skill jev-decision-gate --agent codex --yes --json: installed jev-decision-gate; installed demo passed",
-    "distribution": "Two directory applications submitted; social posts remain drafts"
+    "distribution": "Two directory applications submitted; social posts remain drafts",
+    "comparison": [
+      "general LLM API",
+      "direct Jev API",
+      "Jev Decision Gate MCP"
+    ],
+    "scenes": [
+      "three integration choices",
+      "underlying prices and host costs",
+      "included workflow features",
+      "actual offline rules result",
+      "installation"
+    ],
+    "animation_qa": {
+      "languages": [
+        "en",
+        "zh-CN"
+      ],
+      "dimensions": [
+        900,
+        760
+      ],
+      "duration_ms": 35000,
+      "encoded_frames_per_language": 11,
+      "loop": "infinite",
+      "visual_review": "all five settled scenes in both languages and Chinese mobile-size first scene checked; text-width guards passed"
+    },
+    "host_token_cost": "may be incurred even with a zero-provider-token rules call; not measured"
   },
   "mcpb_distribution": {
     "status": "published_and_registered",
