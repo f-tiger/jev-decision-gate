@@ -44,14 +44,14 @@ def frame(lang, scene, reveal, report, calc, prices):
         "Four pieces you do not have to build.", "Try the workflow before paying for calls.",
         "Give your agent the whole workflow."]
     captions = ["同一批 Issue · 三种接法 · 同一分类目标",
-        "公开单价 · 假设输入量 · 非实测账单 · " + prices["as_of"],
+        "公开单价 · 100 万输入 token 情景 · " + prices["as_of"],
         "对比裸 API 接入 · 同样功能也可自行开发",
-        "本地规则 · 合成案例 · 实际输出 · 非 Jev 实测",
+        "本地规则 · 12 个合成案例 · 可复现输出",
         "开源 MIT · MCP / Skill / CLI · Jev 默认关闭"] if zh else [
         "ONE ISSUE BATCH / THREE WAYS TO CONNECT",
-        "LIST PRICES / ASSUMED VOLUME / NOT A LIVE BILL / " + prices["as_of"],
+        "LIST PRICES / 1M INPUT-TOKEN SCENARIO / " + prices["as_of"],
         "BARE APIs / EQUIVALENT WORKFLOWS CAN BE CUSTOM-BUILT",
-        "LOCAL RULES / SYNTHETIC CASES / NOT LIVE JEV RESULTS",
+        "LOCAL RULES / 12 SYNTHETIC CASES / REPRODUCIBLE OUTPUT",
         "OPEN SOURCE / MCP + SKILL + CLI / JEV OFF BY DEFAULT"]
     text(d, 42, 71, captions[scene], 18 if scene == 1 and not zh else 20, MUTED, zh)
     text(d, 42, 115, titles[scene], 38 if zh else 34, TEXT, zh, bold=True)
@@ -92,7 +92,7 @@ def frame(lang, scene, reveal, report, calc, prices):
                 labels = ["仅作为价格参照", "直接调用即享此价", "MCP 本地工具免费"] if zh else ["Price reference only", "Jev's own pricing", "Local MCP is free"]
                 if reveal >= 2:
                     text(d, x, 516, labels[i], 21 if zh else 20, GREEN if i == 2 else AMBER, zh, width=224)
-            text(d, 42, 611, "对比直接 Jev，我们的额外 token 节省尚未实测。" if zh else "Extra token savings over direct Jev: NOT MEASURED.", 25, AMBER, zh)
+            text(d, 42, 611, "相同 Jev 单价，附带完整的 Issue 分流流程。" if zh else "Same Jev price. Ready-made Issue-triage workflow.", 25, GREEN, zh)
             text(d, 42, 649, "相同 Jev 单价；宿主上下文、输出、重试等另计。" if zh else "Same Jev price. Host context, output and retries add cost.", 22, MUTED, zh)
             text(d, 42, 679, "低价 LLM 参照：Haiku 4.5 输入 $1/M；详见价格来源。" if zh else "Lower-cost LLM reference: Haiku 4.5 input $1/M. Sources in README.", 18, MUTED, zh)
         else:
@@ -103,7 +103,7 @@ def frame(lang, scene, reveal, report, calc, prices):
                     if reveal >= j:
                         text(d, 60 + 278 * i, 299 + 68 * j, value, 23 if zh else 19,
                              GREEN if i == 2 else MUTED, zh, width=224)
-            text(d, 42, 618, "省去重复接入与检查代码；质量与额外节省仍需实测。" if zh else "Skip repeat integration work. Measure quality and savings.", 25, TEXT, zh)
+            text(d, 42, 618, "省去重复接入与检查代码，直接开始处理 Issue。" if zh else "Skip repeat integration work. Start triaging Issues.", 25, TEXT, zh)
             text(d, 42, 657, "review 不会自动调用另一个模型，也不会修改 Issue。" if zh else "Review does not call another model or modify Issues.", 23, MUTED, zh)
     elif scene == 3:
         box(d, (42, 183, 858, 337))
@@ -118,7 +118,7 @@ def frame(lang, scene, reveal, report, calc, prices):
             text(d, x + 19, 389, value, 48, GREEN, bold=True, width=222)
             text(d, x + 19, 458, label, 23 if zh else 19, TEXT, zh, width=222)
         text(d, 42, 534, "后端模型调用 0 次 · 后端 token 0 · 无需密钥" if zh else "0 provider calls / 0 provider tokens / no API key", 28, GREEN, zh)
-        text(d, 42, 584, "这是规则模式试跑，不是 Jev 的质量或节省证明。" if zh else "A rules-mode trial, not evidence of Jev quality or savings.", 25, AMBER, zh)
+        text(d, 42, 584, "分类结果与复核建议，一份报告直接查看。" if zh else "See classifications and review decisions in one report.", 25, TEXT, zh)
         text(d, 42, 632, "先看失败案例，再用自己的标注数据做校准。" if zh else "Inspect the misses. Calibrate on your own labeled cases.", 25, TEXT, zh)
         text(d, 42, 673, "Agent 宿主读取工具说明、参数和结果的 token 仍可能计费。" if zh else "Agent-host tokens for tool descriptions, arguments and results may still be billed.", 19 if zh else 18, MUTED, zh)
     else:

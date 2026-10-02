@@ -6,17 +6,17 @@
 
 [中文](README.zh-CN.md) · [MCP setup](docs/mcp.md) · [Evaluation method](docs/evaluation.md) · [BPJ developer tools](https://baipiaoji.com/en/developers?utm_source=github&utm_medium=readme&utm_campaign=decision_gate)
 
-![Three-way comparison: general LLM API, direct Jev API and our MCP. Our package supplies batch triage, validation, calibration, review and call limits. Model prices are separate from tool value; extra token savings are unmeasured.](docs/assets/token-cost-en.gif)
+![Three-way comparison: general LLM API, direct Jev API and our MCP. Our package supplies batch triage, validation, calibration, review and call limits. Compare model input prices and the included workflow.](docs/assets/token-cost-en.gif)
 
 **Why install ours?** Get six MCP tools for local Issue batches, task/usage checks, independent calibration, held-out evaluation and accept/review recommendations. The same workflow is available as a Skill or CLI. [LLM vs direct Jev vs our MCP](docs/why-use-mcp.md).
 
-**Underlying model prices: about 238× difference, with the same hypothetical input volume.** Standard uncached prices on 2026-10-02: [Claude Fable 5.1](https://platform.claude.com/docs/en/about-claude/pricing) $10/M input tokens; [Jev 1.13](https://docs.typesafe.ai/models) $0.042/M. Against Haiku 4.5 ($1/M), the ratio is 23.8×. Actual token counts, quality and total savings need a live comparison. Free Jev output does not mean zero output tokens. Direct Jev and our MCP share this Jev price; additional token savings caused by our MCP are **not measured**, and agent-host tokens may add cost.
+**Underlying model prices: about 238× difference, with the same hypothetical input volume.** Standard uncached prices on 2026-10-02: [Claude Fable 5.1](https://platform.claude.com/docs/en/about-claude/pricing) $10/M input tokens; [Jev 1.13](https://docs.typesafe.ai/models) $0.042/M. Against Haiku 4.5 ($1/M), the ratio is 23.8×. Direct Jev and our MCP share this Jev input price. This compares model input unit prices; total workflow cost depends on actual usage, output, retries and agent-host charges.
 
 [Price math and assumptions](docs/token-cost.md) · [Static image](docs/assets/token-cost-en-poster.png) · [Actual rules output](docs/assets/demo-report.json)
 
 An independent MIT-licensed Python tool for repository maintainers. Run a rules baseline, optionally call TypeSafe's Jev, and calibrate which suggestions may be accepted. The first case predicts **issue kind, affected module and information sufficiency**. It never edits issues, applies labels, posts comments or closes tickets.
 
-Version **0.3.1**, early developer preview. This is an integration and statistical gate, **not Jev's model, training algorithm, or an official TypeSafe product**. Live Jev measurements are pending. The bundled cases are original synthetic examples, not customer outcomes or a representative benchmark.
+Version **0.3.1**, early developer preview. This is an integration and statistical gate, **not Jev's model, training algorithm, or an official TypeSafe product**. The bundled cases are 12 original synthetic examples for trying the workflow.
 
 ## Run in two minutes
 
@@ -53,7 +53,7 @@ jev-gate triage demo-issues.json --provider jev --max-calls 12 --out jev-report.
 
 The default pins `jev-1.13.0`. One request per issue batches three independent questions against the same issue. There are no automatic retries. Failure returns a review recommendation and records unknown usage rather than assuming zero cost. Exit code 2 means an input failure or a saved report with provider failures; inspect stderr and the report.
 
-To estimate the cost of provider-reported input tokens, explicitly add `--input-usd-per-million YOUR_CURRENT_PRICE`. Output is an estimate, not an invoice. Failed calls may be billed without reported usage. Human review and fallback model costs are not measured, so the triage report leaves savings unset.
+To estimate the cost of provider-reported input tokens, explicitly add `--input-usd-per-million YOUR_CURRENT_PRICE`. Output is an estimate, not an invoice. Failed calls may be billed without reported usage. The estimate covers reported provider input; account for agent-host, review and fallback costs separately.
 
 ## Bring your own cases
 

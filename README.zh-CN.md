@@ -6,17 +6,17 @@
 
 [English](README.md) · [MCP 接入](docs/mcp.md) · [BPJ 开发者入口](https://baipiaoji.com/developers?utm_source=github&utm_medium=readme&utm_campaign=decision_gate)
 
-![三方对比动画：通用大模型 API、直接 Jev API、我们的 MCP。展示批量入口、校验、校准、复核和调用限制；模型单价与工具增量分开，额外 token 节省未实测。](docs/assets/token-cost-zh-CN.gif)
+![三方对比动画：通用大模型 API、直接 Jev API、我们的 MCP。展示批量入口、校验、校准、复核和调用限制；对比模型输入单价与现成工作流。](docs/assets/token-cost-zh-CN.gif)
 
 **为什么安装我们的工具？** 一次安装，获得批量 Issue 入口、字段与用量检查、独立校准、留出集评估和接受／复核建议，共 6 个 MCP 工具，也可作为 Skill 或 CLI 使用。[三种接法详细对比](docs/why-use-mcp.md)。
 
-**底层模型价格：相同的假设输入量，单价相差约 238 倍。** 按 2026-10-02 标准未缓存价格：[Claude Fable 5.1](https://platform.claude.com/docs/en/about-claude/pricing) 为 $10／百万输入 token，[Jev 1.13](https://docs.typesafe.ai/models) 为 $0.042；对比 Haiku 4.5 的 $1，差距为 23.8 倍。实际 token 数、质量和总节省仍待同任务实测。Jev 输出免费不代表输出 token 为零。直接 Jev 与我们的 MCP 使用相同的 Jev 单价；我们的额外 token 节省**尚未实测**，Agent 宿主 token 还可能另行计费。
+**底层模型价格：相同的假设输入量，单价相差约 238 倍。** 按 2026-10-02 标准未缓存价格：[Claude Fable 5.1](https://platform.claude.com/docs/en/about-claude/pricing) 为 $10／百万输入 token，[Jev 1.13](https://docs.typesafe.ai/models) 为 $0.042；对比 Haiku 4.5 的 $1，差距为 23.8 倍。直接 Jev 与我们的 MCP 使用相同的 Jev 输入单价。这里对比模型输入单价；完整流程费用取决于实际用量、输出、重试和 Agent 宿主计费。
 
 [测算口径与来源](docs/token-cost.md) · [静态图](docs/assets/token-cost-zh-CN-poster.png) · [真实规则输出](docs/assets/demo-report.json)
 
 这是独立的 MIT 开源工具，首发面向仓库维护者和小型开发团队：输出 Issue 类型、模块和信息是否充分。提供 Python SDK、CLI、MCP 和 Skill。不会改标签、发评论或关闭 Issue。
 
-当前 v0.3.1 是开发者预览。实现包含真正的 Jev HTTP 适配器；没有 API 密钥时，只能验证接口契约，不能宣称已完成真实 Jev 测量。随附 12 个案例由我们编写，属于合成演示，不是客户案例或代表性评测。
+当前 v0.3.1 是开发者预览，包含 Jev HTTP 适配器和本地规则模式。随附 12 个原创合成案例，便于快速体验完整流程。
 
 ## 本地开始
 
@@ -51,7 +51,7 @@ jev-gate triage demo-issues.json --provider jev --max-calls 12 --out jev-report.
 
 这一步会把所选 Issue 的标题、正文发给 TypeSafe，可能产生费用。默认固定 `jev-1.13.0`，每条 Issue 一次请求，同时问三个独立问题。标准答案不会发给模型。没有自动重试；失败保留人工复核，并把未知用量明确标出。退出码 2 表示输入失败或报告中存在调用失败。
 
-可通过 `--input-usd-per-million 当前单价` 估算已报告 Token 的费用。估算不等于账单；人工复核费用和回退模型费用没有测量，所以不会输出虚假的节省比例。
+可通过 `--input-usd-per-million 当前单价` 估算已报告 Token 的费用。报告按模型服务商返回的输入用量估算费用；Agent 宿主、人工复核和回退模型费用需另行计算。
 
 ## 验证“能否自动接受”
 
