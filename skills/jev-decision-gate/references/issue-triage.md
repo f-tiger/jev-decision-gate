@@ -1,4 +1,4 @@
-# Issue triage v0.3.0
+# Issue triage v0.3.1
 
 Input: a JSON array of 1..200 objects with unique string `id`, nonempty `title` and optional string `body`. Optional `expected` must include all three fields: `kind` in bug/feature/question/unknown; `module` in auth/api/ui/docs/unknown; `information` in sufficient/missing. Expected labels must be independently reviewed, not invented to match output.
 

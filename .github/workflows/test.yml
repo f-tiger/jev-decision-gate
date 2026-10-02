@@ -22,10 +22,11 @@ jobs:
       - run: python -m pip install '.[mcp]'
       - run: python -m unittest discover -s tests -v
       - run: python tests/smoke_mcp.py
+      - run: python tests/smoke_names.py
       - run: python tools/check_skill_parity.py
-      - run: bpj-gate demo --out /tmp/bpj-demo.json
+      - run: jev-gate demo --out /tmp/bpj-demo.json
       - run: python -m pip wheel --no-deps . --wheel-dir dist
       - uses: actions/upload-artifact@v4
         with:
-          name: bpj-decision-gate-python-${{ matrix.python }}
+          name: jev-decision-gate-python-${{ matrix.python }}
           path: dist/*.whl

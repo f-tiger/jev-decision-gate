@@ -19,7 +19,7 @@ def main():
         raise SystemExit("BPJ_MAX_CALLS must be an integer from 1 to 200")
     if allow == "true" and not os.environ.get("TYPESAFE_API_KEY", "").strip():
         raise SystemExit("Enabling Jev requires a TypeSafe API key in protected host configuration")
-    from bpj_decision_gate.mcp_server import create_server
+    from jev_decision_gate.mcp_server import create_server
     create_server(Path(data_root), allow == "true", int(maximum)).run(transport="stdio")
 
 

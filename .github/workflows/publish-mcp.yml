@@ -31,6 +31,7 @@ jobs:
           python -m unittest discover -s tests -v
           python tools/check_skill_parity.py
           python tests/smoke_mcp.py
+          python tests/smoke_names.py
       - name: Validate dependency lock and bundle manifest
         run: |
           uv lock --check --directory distribution --default-index https://pypi.org/simple

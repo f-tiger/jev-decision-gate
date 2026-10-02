@@ -1,5 +1,6 @@
 """Exercise the shipped archive and interpolated host configuration; no paid API calls."""
 import asyncio
+import argparse
 import json
 import os
 import shutil
@@ -20,10 +21,12 @@ async def main(artifact):
             assert all(not Path(p).is_absolute() and ".." not in Path(p).parts for p in archive.namelist())
             archive.extractall(bundle)
         manifest = json.loads((bundle / "manifest.json").read_text())
+        expected = json.loads((Path(__file__).resolve().parents[1] / "distribution/release.json").read_text())
+        assert manifest["version"] == expected["version"], "Test the current release artifact"
         config = manifest["server"]["mcp_config"]
         data = root / "data"
         data.mkdir()
-        shutil.copyfile(bundle / "src/bpj_decision_gate/demo-issues.json", data / "issues.json")
+        shutil.copyfile(bundle / "src/jev_decision_gate/demo-issues.json", data / "issues.json")
         values = {"data_root": str(data), "allow_jev": "false", "max_calls": "20", "api_key": ""}
         env = {key: values[value.removeprefix("${user_config.").removesuffix("}")]
                for key, value in config["env"].items()}
@@ -36,6 +39,8 @@ async def main(artifact):
         for mode in ("auto", "legacy"):
             params = StdioServerParameters(command=command, args=args, env=env)
             async with Client(params, mode=mode, read_timeout_seconds=120) as client:
+                assert client.server_info and client.server_info.name == "Jev Decision Gate", client.server_info
+                assert client.server_info.version == manifest["version"], client.server_info
                 names = sorted(t.name for t in (await client.list_tools()).tools)
                 assert names == ["calibrate_gate", "calibrate_issue_gate", "evaluate_gate",
                                  "evaluate_issue_gate", "route_batch", "triage_issues"]
@@ -60,4 +65,6 @@ async def main(artifact):
 
 
 if __name__ == "__main__":
-    asyncio.run(main(Path(sys.argv[1]).resolve()))
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("artifact", type=Path)
+    asyncio.run(main(parser.parse_args().artifact.resolve()))

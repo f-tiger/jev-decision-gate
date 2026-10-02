@@ -48,7 +48,7 @@ Use only when the author can discuss the implementation and respond. [Show HN ru
 
 Evidence packet:
 
-- Implementation: `src/bpj_decision_gate/triage.py` — actual request construction, HTTP adapter, response validation and review outcomes.
+- Implementation: `src/jev_decision_gate/triage.py` — actual request construction, HTTP adapter, response validation and review outcomes.
 - Runnable checks: `tests/test_triage.py`, `tests/smoke_mcp.py`, public Actions run.
 - Walkthrough: `README.md`, `docs/assets/token-cost-en.gif`.
 - Boundaries and prices: `docs/token-cost.md`, `docs/verification.json`.

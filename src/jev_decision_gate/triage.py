@@ -95,7 +95,7 @@ def http_post(payload, key):
         raise ProviderError("request exceeds local 24,000-byte safety budget")
     request = urllib.request.Request(ENDPOINT, data=raw, headers={
         "Authorization": "Bearer " + key, "Content-Type": "application/json",
-        "User-Agent": "bpj-decision-gate/0.3.0"}, method="POST")
+        "User-Agent": "jev-decision-gate/0.3.1"}, method="POST")
     try:
         # No redirects: never forward credentials elsewhere. No retries: a timeout may be billed.
         with urllib.request.build_opener(_NoRedirect()).open(request, timeout=30) as response:
@@ -205,7 +205,7 @@ def triage(issues, *, provider="rules", model=MODEL, gate: Gate | None = None,
             row["correct"] = row["prediction"] == issue["expected"]
         rows.append(row)
     labeled = [r for r in rows if "correct" in r]
-    return {"version": "0.3.0", "scope": scope, "provider": provider,
+    return {"version": "0.3.1", "scope": scope, "provider": provider,
             "model": model if provider == "jev" else "rules-v1", "rows": rows,
             "summary": {"issues": len(rows), "model_calls": calls, "review": sum(r["action"] == "review" for r in rows),
                         "labeled": len(labeled), "joint_accuracy": sum(r["correct"] for r in labeled)/len(labeled) if labeled else None,
@@ -238,7 +238,7 @@ def report_rows(report):
 
 def calibrate_report(report, max_error=.05, delta=.05):
     gate, candidates = fit_gate(report_rows(report), report["scope"], max_error, delta)
-    return {"version": "0.3.0", "gate": asdict(gate), "candidates": candidates,
+    return {"version": "0.3.1", "gate": asdict(gate), "candidates": candidates,
             "note": "Freeze model/questions/score mapping before independent calibration. The bound covers accepted predictions under i.i.d. sampling, not drift or manual review."}
 
 

@@ -1,18 +1,21 @@
-# v0.3.0 release notes
+# v0.3.1 release notes
 
-First independent developer preview of BPJ Decision Gate.
+Jev Decision Gate now uses one public name across the repository, Skill, MCP server, Python distribution, README examples and animated walkthrough.
 
-- Issue triage: kind, module and information sufficiency.
-- Deterministic offline baseline and version-pinned Jev HTTP adapter.
-- Independent acceptance calibration and disjoint held-out evaluation.
-- Python CLI/SDK, six local MCP tools and a bundled Skill.
-- Bilingual instructions and 12 original synthetic cases.
-- Model usage and failures recorded without inventing net savings.
+- Skill: `jev-decision-gate`; install with `npx skills add f-tiger/jev-decision-gate --skill jev-decision-gate`.
+- CLI: `jev-gate` and `jev-gate-mcp`.
+- Python: `jev_decision_gate`; distribution metadata: `jev-decision-gate`.
+- MCP server display: **Jev Decision Gate**; Registry name remains `io.github.f-tiger/jev-decision-gate`.
+- BPJ remains the independent publisher. This is not an official TypeSafe product.
 
-Current limits: no live Jev run without a locally supplied key; no hosted service; no automatic issue edits; no model training or Jev reproduction; no PyPI/MCP Registry listing. The website introduction is prepared but not deployed. See verification.json for actual local test evidence. The first [GitHub Actions run](https://github.com/f-tiger/jev-decision-gate/actions/runs/36955430515) passed on Python 3.11 and 3.12, including 24 unit tests, both MCP protocol modes and wheel builds. Public cloning, installation and the offline demo also passed.
+## Existing installations
 
-## Maintainer publication
+The new package retains `bpj-gate`, `bpj-gate-mcp` and `bpj_decision_gate` imports as compatibility entry points to the same implementation. New examples use Jev names. Use a fresh virtual environment for the update, or uninstall the old `bpj-decision-gate` Python distribution before installing the new project into the existing environment; neither distribution has been published to PyPI.
 
-Published: public [`f-tiger/jev-decision-gate`](https://github.com/f-tiger/jev-decision-gate), standalone, MIT. Description: “Issue triage with Jev, independent acceptance gates, and local MCP/Skills. Rules baseline included.” Suggested topics: `jev`, `mcp`, `agent-skills`, `issue-triage`, `selective-prediction`, `python`. These are proposed settings, not claimed to be applied.
+For a Skill installed under the old `bpj-decision-gate` name, install the new name, verify a rules demo, then remove the old Skill through your host to avoid duplicate instructions. The maintainer's existing personal Skill is updated in place. Previous GitHub release artifacts remain immutable.
 
-Source is available on main. A version tag/GitHub Release has not yet been created. PyPI and MCP Registry publication require separate account permissions; neither is necessary for a Git-based install. Do not publish keys, private issues or reports. Do not promise a hosted/paid product from this release.
+## Scope and evidence
+
+Issue triage, six MCP tools, the rules baseline, Jev contract and acceptance method are unchanged. The rename does not establish new quality, token or cost results. Live Jev evaluation remains pending. [Verification](verification.json) and [publication status](distribution.md) record completed checks and active versions.
+
+v0.3.0 was the first public preview, with a GitHub MCPB release and official Registry entry. Version 0.3.1 is a naming/compatibility update; see the publication status for its actual registration outcome.

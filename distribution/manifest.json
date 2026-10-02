@@ -2,7 +2,7 @@
   "manifest_version": "0.4",
   "name": "jev-decision-gate",
   "display_name": "Jev Decision Gate · by BPJ",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Local Issue triage, optional Jev judgments and independently calibrated acceptance gates.",
   "author": {"name": "BPJ", "url": "https://baipiaoji.com/en/developers"},
   "homepage": "https://github.com/f-tiger/jev-decision-gate",

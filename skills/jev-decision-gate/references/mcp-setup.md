@@ -1,4 +1,4 @@
-# Local MCP v0.3.0
+# Local MCP v0.3.1
 
 Use Python 3.11+ with `mcp==2.2.0`:
 
@@ -6,7 +6,7 @@ Use Python 3.11+ with `mcp==2.2.0`:
 <venv-python> <skill>/scripts/mcp_server.py --data-root <absolute-authorized-directory>
 ```
 
-This is stdio, not HTTP. Set a supported host's command to the absolute Python executable and its args to the script path, --data-root and the directory. Do not claim a host connection before tool discovery succeeds. No server is hosted or registered automatically.
+This is local stdio. Set a supported host's command to the absolute Python executable and its args to the script path, --data-root and the directory. The public project is registered as `io.github.f-tiger/jev-decision-gate` in the official MCP Registry; see the repository's `docs/distribution.md` for version status. Installing this Skill supplies scripts and instructions; verify tool discovery before claiming the user's host is connected.
 
 Jev requires `--allow-jev` at startup and TYPESAFE_API_KEY through the host's secret/environment mechanism. --max-calls defaults to 20 per invocation, not per day/account. Never commit keys. Smoke tests make no paid calls.
 

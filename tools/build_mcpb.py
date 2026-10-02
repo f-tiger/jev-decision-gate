@@ -32,7 +32,7 @@ def main():
     for name in ("__init__.py", "cli.py", "contracts.py", "decision_engine.py",
                  "io.py", "mcp_server.py", "risk_gate.py", "triage.py",
                  "demo-issues.json"):
-        files[f"src/bpj_decision_gate/{name}"] = ROOT / "src/bpj_decision_gate" / name
+        files[f"src/jev_decision_gate/{name}"] = ROOT / "src/jev_decision_gate" / name
     output = ROOT / "dist"
     output.mkdir(exist_ok=True)
     artifact = output / f"jev-decision-gate-{version}.mcpb"

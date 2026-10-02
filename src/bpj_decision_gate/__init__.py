@@ -1,2 +1,2 @@
-"""BPJ Decision Gate. An independent integration, not a TypeSafe product."""
-__version__ = "0.3.0"
+"""Compatibility imports for Jev Decision Gate; use jev_decision_gate in new code."""
+from jev_decision_gate import __version__

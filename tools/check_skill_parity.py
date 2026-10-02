@@ -1,8 +1,8 @@
 """Ensure the distributable Skill uses the same implementation as the package."""
 from pathlib import Path
 root = Path(__file__).resolve().parents[1]
-source = root / "src/bpj_decision_gate"
-bundled = root / "skills/bpj-decision-gate/scripts/bpj_decision_gate"
+source = root / "src/jev_decision_gate"
+bundled = root / "skills/jev-decision-gate/scripts/jev_decision_gate"
 names = {p.name for p in source.iterdir() if p.suffix in {".py", ".json"}}
 other = {p.name for p in bundled.iterdir() if p.suffix in {".py", ".json"}}
 assert names == other, "package/Skill file lists differ"

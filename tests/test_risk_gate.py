@@ -1,6 +1,6 @@
 import math
 import unittest
-from bpj_decision_gate.risk_gate import fit_gate, evaluate, upper_error_bound
+from jev_decision_gate.risk_gate import fit_gate, evaluate, upper_error_bound
 
 
 def row(i, score=.99, correct=True, **extra):

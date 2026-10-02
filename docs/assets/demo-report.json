@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0",
+  "version": "0.3.1",
   "scope": "issue-triage:rules:rules-v1:5c66f141a9d575ca",
   "provider": "rules",
   "model": "rules-v1",

@@ -16,7 +16,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from bpj_decision_gate.triage import triage  # noqa: E402
+from jev_decision_gate.triage import triage  # noqa: E402
 from price_scenario import calculate, SNAPSHOT  # noqa: E402
 
 OUT = ROOT / "docs/assets"
@@ -90,7 +90,7 @@ def frame(lang, scene, reveal, rows, summary):
     else:
         box(d, (42, 190, 858, 347))
         text(d, (64, 213), "安装后运行，无需 API 密钥" if zh else "AFTER INSTALLATION  /  NO API KEY", 23, MUTED, zh)
-        text(d, (64, 262), "$ bpj-gate demo", 31, GREEN, mono=True)
+        text(d, (64, 262), "$ jev-gate demo", 31, GREEN, mono=True)
         text(d, (100, 303), "--out demo-report.json", 26, TEXT, mono=True)
         values = [str(summary["issues"]), f"{sum(r['correct'] for r in summary['all_rows'])}/{summary['issues']}", str(summary["review"])]
         names = ["合成案例", "三项全对", "仍需复核"] if zh else ["SYNTHETIC CASES", "JOINTLY CORRECT", "NEED REVIEW"]

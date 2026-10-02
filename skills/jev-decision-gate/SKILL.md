@@ -1,9 +1,9 @@
 ---
-name: bpj-decision-gate
-description: "Triage GitHub Issue JSON with a local rules baseline or an authorized Jev call; calibrate acceptance and evaluate held-out quality. Also audit caller-supplied LLM routing scores and costs through Python or local MCP. Use for BPJ Decision Gate, Issue triage, selective acceptance, fallback evaluation, or MCP integration."
+name: jev-decision-gate
+description: "Triage GitHub Issue JSON with a local rules baseline or an authorized Jev call; calibrate acceptance and evaluate held-out quality. Also audit caller-supplied LLM routing scores and costs through Python or local MCP. Use for Jev Decision Gate, Issue triage, selective acceptance, fallback evaluation, or MCP integration."
 ---
 
-# BPJ Decision Gate
+# Jev Decision Gate
 
 Use bundled deterministic code for evaluation. Distinguish Issue inference from generic scored-trace replay. Never invent labels, costs, model results, installed host connections or savings.
 

@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def get(url):
-    request = urllib.request.Request(url, headers={"User-Agent": "jev-decision-gate-release-check/0.3.0"})
+    request = urllib.request.Request(url, headers={"User-Agent": "jev-decision-gate-release-check/0.3.1"})
     with urllib.request.urlopen(request, timeout=60) as response:
         return response.read()
 

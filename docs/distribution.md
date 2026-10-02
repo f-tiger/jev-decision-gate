@@ -5,10 +5,10 @@ Checked 2026-10-02. Installation, Registry registration and curated directory ac
 | Channel | Status | Evidence / next step |
 |---|---|---|
 | Public source | Available | [Repository](https://github.com/f-tiger/jev-decision-gate) |
-| Skills CLI | Public-repository install and bundled rules demo verified | `npx skills add f-tiger/jev-decision-gate --skill bpj-decision-gate` |
+| Skills CLI | Renamed Skill locally verified; v0.3.1 public install check pending | `npx skills add f-tiger/jev-decision-gate --skill jev-decision-gate` |
 | skills.sh listing | Not confirmed | Listing/discovery is influenced by genuine CLI installs; no installs or rankings are fabricated |
-| GitHub MCPB release | Published v0.3.0 preview | [Release and downloads](https://github.com/f-tiger/jev-decision-gate/releases/tag/v0.3.0); public download SHA256 verified |
-| Official MCP Registry | Registered; active v0.3.0 | [Exact Registry record](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.f-tiger%2Fjev-decision-gate/versions/0.3.0); name/version/asset hash verified |
+| GitHub MCPB release | v0.3.0 published; v0.3.1 naming update prepared | [Release and downloads](https://github.com/f-tiger/jev-decision-gate/releases/tag/v0.3.0); public download SHA256 verified |
+| Official MCP Registry | Active v0.3.0; v0.3.1 pending publication | [Exact Registry record](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.f-tiger%2Fjev-decision-gate/versions/0.3.0); name/version/asset hash verified |
 | heyjunpenn/awesome-jev (jevbest) | Submitted; awaiting review | [Submission #72](https://github.com/heyjunpenn/awesome-jev/issues/72) |
 | hellogumbo/awesome-jev | Submitted; awaiting review | [Submission #152](https://github.com/hellogumbo/awesome-jev/issues/152) |
 | yibie/awesome-jev | Not submitted | Requires a category-file PR and regenerated README |

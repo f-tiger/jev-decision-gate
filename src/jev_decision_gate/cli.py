@@ -39,7 +39,7 @@ def main():
         if not Path(args.out).parent.is_dir():
             raise ValueError("output parent directory must already exist")
         if args.command == "demo":
-            issues = json.loads(files("bpj_decision_gate").joinpath("demo-issues.json").read_text())
+            issues = json.loads(files("jev_decision_gate").joinpath("demo-issues.json").read_text())
             if args.export_issues:
                 write_json(args.export_issues, issues)
             result = triage(issues)
@@ -58,7 +58,7 @@ def main():
             return 2  # Partial report is saved. Failed items always need review.
         return 0
     except (ValueError, OSError) as exc:
-        print(f"bpj-gate: {exc}", file=sys.stderr)
+        print(f"jev-gate: {exc}", file=sys.stderr)
         return 2
 
 

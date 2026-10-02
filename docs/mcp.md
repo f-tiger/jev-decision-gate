@@ -17,15 +17,15 @@ For hosts supporting the conventional `mcpServers` configuration:
 ```json
 {
   "mcpServers": {
-    "bpj-decision-gate": {
-      "command": "/absolute/path/jev-decision-gate/.venv/bin/bpj-gate-mcp",
+    "jev-decision-gate": {
+      "command": "/absolute/path/jev-decision-gate/.venv/bin/jev-gate-mcp",
       "args": ["--data-root", "/absolute/path/authorized-json"]
     }
   }
 }
 ```
 
-On Windows, the command is the environment's `Scripts/bpj-gate-mcp.exe`. Hosts use different configuration locations and keys; use the host's current documentation. This project speaks local **stdio**, not remote HTTP.
+On Windows, the command is the environment's `Scripts/jev-gate-mcp.exe`. Hosts use different configuration locations and keys; use the host's current documentation. This project speaks local **stdio**, not remote HTTP.
 
 Add `--allow-jev` to `args` and expose `TYPESAFE_API_KEY` through the host's secret/environment mechanism only when you intend to make paid TypeSafe calls. Default `--max-calls 20` limits calls in **each tool invocation**, not per day or account. Requests above that limit fail before any model call. The user controls the provider's billing limits. There is no total-spend enforcement or hidden retry loop.
 
@@ -38,7 +38,7 @@ Add `--allow-jev` to `args` and expose `TYPESAFE_API_KEY` through the host's sec
 | `evaluate_gate` | Generic disjoint test traces; replayed costs and fallback outcomes |
 | `route_batch` | Supplied scores; recommends accept/fallback without calling a model |
 
-Example request to your assistant: “Use BPJ Decision Gate to run the rules baseline on `issues.json` in the configured directory. Explain which items need review. Do not change GitHub Issues.”
+Example request to your assistant: “Use Jev Decision Gate to run the rules baseline on `issues.json` in the configured directory. Explain which items need review. Do not change GitHub Issues.”
 
 Reports are returned to the MCP host; if needed, the host saves them to an explicitly chosen JSON file for calibration. MCP itself does not write files. Result content may enter the host model's context. No policy persists after server restart. At most 32 policies live in memory. Calibrate again after restart, or use the CLI with an explicit policy file.
 

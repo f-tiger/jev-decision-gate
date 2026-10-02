@@ -17,6 +17,7 @@ async def check_mode(root, mode):
         command=sys.executable,
         args=[str(Path(__file__).with_name("mcp_server.py")), "--data-root", str(root)])
     async with Client(params, mode=mode, read_timeout_seconds=20) as client:
+        assert client.server_info and client.server_info.name == "Jev Decision Gate", client.server_info
         names = sorted(t.name for t in (await client.list_tools()).tools)
         assert names == ["calibrate_gate", "calibrate_issue_gate", "evaluate_gate", "evaluate_issue_gate", "route_batch", "triage_issues"], names
         fitted = await client.call_tool("calibrate_gate", {
@@ -109,7 +110,7 @@ async def main():
         write_fixture(root.parent, "outside.json", calibration)
         (root / "escape.json").symlink_to(root.parent / "outside.json")
         from importlib.resources import files
-        write_fixture(root, "issues.json", json.loads(files("bpj_decision_gate").joinpath("demo-issues.json").read_text()))
+        write_fixture(root, "issues.json", json.loads(files("jev_decision_gate").joinpath("demo-issues.json").read_text()))
         results = []
         for mode in ("auto", "legacy"):
             results.append(await check_mode(root, mode))

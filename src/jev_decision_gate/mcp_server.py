@@ -14,7 +14,7 @@ from .triage import MODEL, calibrate_report, evaluate_report, read_gate, triage
 
 def create_server(data_root, allow_jev=False, max_calls=20):
     engine = DecisionEngine(data_root)
-    server = MCPServer("BPJ Decision Gate", version="0.3.0", instructions=(
+    server = MCPServer("Jev Decision Gate", version="0.3.1", instructions=(
         "Read-only local triage and scored-trace evaluation. Relative JSON paths stay in the configured data root. "
         "Jev mode sends selected issue title/body to TypeSafe and may incur API costs; requires startup opt-in. "
         "No GitHub writes, no hosted service, no guaranteed savings. Uncalibrated or failed judgments require review. "

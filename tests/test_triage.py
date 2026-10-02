@@ -6,9 +6,9 @@ import unittest
 from dataclasses import replace
 from pathlib import Path
 from unittest.mock import patch
-from bpj_decision_gate.io import read_json, write_json
-from bpj_decision_gate.risk_gate import Gate
-from bpj_decision_gate.triage import (MODEL, TAXONOMY, ProviderError, build_request,
+from jev_decision_gate.io import read_json, write_json
+from jev_decision_gate.risk_gate import Gate
+from jev_decision_gate.triage import (MODEL, TAXONOMY, ProviderError, build_request,
     scope_for, parse_response, triage, calibrate_report, read_gate, evaluate_report, http_post, ENDPOINT)
 
 

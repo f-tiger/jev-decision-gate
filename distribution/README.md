@@ -1,6 +1,6 @@
 # Jev Decision Gate MCP bundle
 
-Early developer preview, version 0.3.0. Independent MIT project by BPJ; not an official TypeSafe product.
+Early developer preview, version 0.3.1. Independent MIT project by BPJ; not an official TypeSafe product.
 
 Import the `.mcpb` file into a host supporting MCPB manifest 0.4 and its UV runtime. Choose an existing absolute directory containing the JSON files the tool may read. Hosts may download UV, Python and locked dependencies on first use; this installation is not fully offline. Hosts without UV bundle support can use the [standard Python stdio setup](https://github.com/f-tiger/jev-decision-gate/blob/main/docs/mcp.md).
 

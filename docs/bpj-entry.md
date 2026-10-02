@@ -4,7 +4,7 @@ This file is proposed content for the existing BPJ website. The independent proj
 
 ## Chinese
 
-Title: BPJ Decision Gate：给 Issue 分流，留下不确定的判断
+Title: Jev Decision Gate：给 Issue 分流，留下不确定的判断
 
 Description: 免费开源的 Python、MCP 与 Skill 工具。先跑本地规则，再选用 Jev；用独立样本评估哪些分类建议可以接受。
 
@@ -20,7 +20,7 @@ Commercial note: 本地工具免费开源；TypeSafe 调用费用另计。BPJ �
 
 ## English
 
-Title: BPJ Decision Gate: triage Issues, keep uncertainty visible
+Title: Jev Decision Gate: triage Issues, keep uncertainty visible
 
 Description: A free open-source Python, MCP and Skill tool. Start with local rules, optionally call Jev, and evaluate acceptance on independently labeled cases.
 

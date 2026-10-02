@@ -1,4 +1,4 @@
-# BPJ Decision Gate: developer first release
+# Jev Decision Gate: developer first release
 
 Date: 2026-10-02. Owner request: complete the Jev-inspired open-source MCP/Skill product and developer cases. This is the explicit product experiment authorization; it does not establish market demand or authorize outreach, spending or new accounts.
 
