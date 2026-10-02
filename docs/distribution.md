@@ -12,7 +12,10 @@ Checked 2026-10-02. Public names are unified as Jev Decision Gate in v0.3.1; see
 | heyjunpenn/awesome-jev (jevbest) | Submitted; awaiting review | [Submission #72](https://github.com/heyjunpenn/awesome-jev/issues/72) |
 | hellogumbo/awesome-jev | Submitted; awaiting review | [Submission #152](https://github.com/hellogumbo/awesome-jev/issues/152) |
 | yibie/awesome-jev | Not submitted | Requires a category-file PR and regenerated README |
-| Smithery / other markets | Not submitted | Separate publisher/account and host requirements; official Registry registration does not guarantee listing |
+| UV quick start | Pinned v0.3.1 launch published | [Claude Code](clients/claude-code.md), [Codex](clients/codex.md), [Cursor](clients/cursor.md); see [checks](discovery-verification.json) |
+| Jev Users | Indexed entry observed 2026-10-02 | [Newest list](https://jevusers.com/?sort=newest) links to the exact f-tiger repository; not an adoption metric |
+| GitHub About / Topics / social preview | Profile text and 1280×640 image prepared; settings not applied | [Ready-to-apply profile and image](discovery-setup.md); current connector lacks repository-settings writes |
+| Smithery | Publication packet prepared; not submitted | [Existing MCPB and submission details](discovery-setup.md); publisher authentication is required |
 
 [Successful automated publication](https://github.com/f-tiger/jev-decision-gate/actions/runs/36959163942): verification → public release → OIDC registration → Registry readback.
 

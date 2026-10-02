@@ -1,0 +1,16 @@
+{
+  "repository": "f-tiger/jev-decision-gate",
+  "description": "Jev-powered GitHub Issue triage for coding agents. MCP server, Agent Skill and Python CLI with batch checks, calibrated review and a no-key local demo.",
+  "homepage": "https://baipiaoji.com/en/developers?utm_source=github&utm_medium=about&utm_campaign=jev_decision_gate",
+  "topics": [
+    "jev",
+    "typesafe-ai",
+    "mcp",
+    "mcp-server",
+    "agent-skills",
+    "issue-triage",
+    "developer-tools",
+    "python"
+  ],
+  "social_preview": "docs/assets/social-preview.png"
+}

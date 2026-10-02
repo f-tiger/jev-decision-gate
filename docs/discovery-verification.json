@@ -1,0 +1,56 @@
+{
+  "checked": "2026-10-02",
+  "scope": "discovery and installation updates; no core algorithm or package-version change",
+  "public_uv_install": {
+    "status": "passed",
+    "release": "v0.3.1",
+    "source_commit": "69d2c69f0c49f6537cb2f4feb47502fba9112e42",
+    "python": "3.12",
+    "dependencies_installed": 29,
+    "source": "public GitHub tag, then immutable commit in client configurations"
+  },
+  "mcp_quickstart": {
+    "status": "passed",
+    "command": "python tests/smoke_quickstart.py",
+    "tools": 6,
+    "synthetic_issues": 12,
+    "provider_calls": 0,
+    "review": 12,
+    "path_with_spaces": "passed",
+    "outside_path": "rejected",
+    "environment": "Linux; fixed public v0.3.1 source launched via UV"
+  },
+  "client_configs": {
+    "json_toml_consistency": "passed",
+    "local_links": "passed",
+    "cli_syntax": "checked against official client docs",
+    "client_gui_import": "not_tested"
+  },
+  "social_preview": {
+    "path": "docs/assets/social-preview.png",
+    "dimensions": [
+      1280,
+      640
+    ],
+    "bytes": 56527,
+    "visual_review": "passed",
+    "applied_to_github_settings": false
+  },
+  "repository_profile": {
+    "path": "distribution/repository-profile.json",
+    "applied": false,
+    "reason": "GitHub connector does not expose repository-settings writes; no authenticated local GitHub CLI"
+  },
+  "smithery": {
+    "status": "publication_packet_ready_not_submitted",
+    "packet": "docs/discovery-setup.md",
+    "artifact_version": "0.3.1",
+    "reason": "Smithery publisher authentication and namespace ownership required; no connected publisher credential"
+  },
+  "jev_users": {
+    "status": "indexed_entry_observed",
+    "url": "https://jevusers.com/?sort=newest",
+    "repository_link": "https://github.com/f-tiger/jev-decision-gate",
+    "adoption_claimed": false
+  }
+}

@@ -1,6 +1,6 @@
 # Product Marketing Context
 
-**Document version:** v5
+**Document version:** v6
 **Last updated:** 2026-10-02
 
 ## Product overview
@@ -30,6 +30,7 @@ Code tests and synthetic demos can establish mechanics. They cannot establish li
 Lead with the three-way LLM API / direct Jev / our MCP workflow comparison, followed by dated underlying-model prices, a reproducible Issue example and installation. Keep the MCP value proposition separate from Jev's model pricing; no incremental MCP token savings have been measured. The 238× Fable/Jev input-price ratio is not a measured token or workflow saving; include a cheaper-model reference and fallback assumptions. The GIF and snapshot are dated 2026-10-02. Prioritize Jev directories, compatible Skill hosts and developer communities; two directory applications are pending review; social posts remain drafts. See docs/growth-plan.zh-CN.md and docs/launch-kit.md.
 
 ## Changelog
+- v6 (2026-10-02) — Brought Skill installation and Claude Code/Codex/Cursor entry points to the README top; prepared a social card and repository profile; confirmed Jev Users indexing. Keep detailed validation status in technical documents and public copy focused on shipped workflow value.
 - v5 (2026-10-02) — Reframed the README animation around why to install our MCP, comparing the same task across three integration choices and separating model price from workflow value.
 - v4 (2026-10-02) — Unified public name, Skill, CLI, MCP and Python package under Jev Decision Gate; legacy commands/imports remain compatibility aliases.
 - v3 (2026-10-02) — Added cost-led discovery, evidence boundaries, developer installation funnel and a measurable distribution experiment after ecosystem research.

@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "jev-decision-gate": {
+      "command": "uvx",
+      "args": [
+        "--python",
+        "3.12",
+        "--from",
+        "jev-decision-gate[mcp] @ git+https://github.com/f-tiger/jev-decision-gate@69d2c69f0c49f6537cb2f4feb47502fba9112e42",
+        "jev-gate-mcp",
+        "--data-root",
+        "/absolute/path/to/issue-json"
+      ]
+    }
+  }
+}

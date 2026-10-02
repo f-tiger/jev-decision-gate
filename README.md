@@ -6,6 +6,14 @@
 
 [中文](README.zh-CN.md) · [MCP setup](docs/mcp.md) · [Evaluation method](docs/evaluation.md) · [BPJ developer tools](https://baipiaoji.com/en/developers?utm_source=github&utm_medium=readme&utm_campaign=decision_gate)
 
+**Install the Skill** (choose your agent):
+
+```bash
+npx skills add f-tiger/jev-decision-gate --skill jev-decision-gate
+```
+
+[Claude Code](docs/clients/claude-code.md) · [Codex](docs/clients/codex.md) · [Cursor](docs/clients/cursor.md) · [Download MCPB](https://github.com/f-tiger/jev-decision-gate/releases/tag/v0.3.1)
+
 ![Three-way comparison: general LLM API, direct Jev API and our MCP. Our package supplies batch triage, validation, calibration, review and call limits. Compare model input prices and the included workflow.](docs/assets/token-cost-en.gif)
 
 **Why install ours?** Get six MCP tools for local Issue batches, task/usage checks, independent calibration, held-out evaluation and accept/review recommendations. The same workflow is available as a Skill or CLI. [LLM vs direct Jev vs our MCP](docs/why-use-mcp.md).
@@ -104,11 +112,7 @@ Jev is disabled by default in MCP. Add `--allow-jev --max-calls 20` at startup o
 
 Use the installable instructions under [`skills/jev-decision-gate/`](skills/jev-decision-gate/) in a compatible Skill host. Installation locations differ by host; this repository does not silently install or modify your host. The bundled Skill can run the same Python implementation without downloading project code during a task.
 
-For hosts supported by the [Skills CLI](https://github.com/vercel-labs/skills):
-
-```bash
-npx skills add f-tiger/jev-decision-gate --skill jev-decision-gate
-```
+Use the Skill command at the top of this page; supported agents are listed in the [Skills CLI](https://github.com/vercel-labs/skills).
 
 Discovery, an isolated public-repository installation and the installed Skill’s rules demo have been verified. Choose your agent during installation. The third-party Skills CLI has its own optional telemetry; see [its documentation](https://skills.sh/docs/cli) for `DISABLE_TELEMETRY=1`. This package itself has no telemetry.
 

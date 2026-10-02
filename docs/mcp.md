@@ -1,5 +1,7 @@
 # Local MCP setup
 
+**No-clone setup:** [Claude Code](clients/claude-code.md) · [Codex](clients/codex.md) · [Cursor](clients/cursor.md). These launch the pinned v0.3.1 package through UV.
+
 ## MCPB bundle
 
 Download [`jev-decision-gate-0.3.1.mcpb`](https://github.com/f-tiger/jev-decision-gate/releases/tag/v0.3.1) from the public release. It is registered as [`io.github.f-tiger/jev-decision-gate`](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.f-tiger%2Fjev-decision-gate/versions/0.3.1) with the official MCP Registry. The release includes `SHA256SUMS` and Registry metadata. [Publication and directory status](distribution.md).

@@ -6,6 +6,14 @@
 
 [English](README.md) · [MCP 接入](docs/mcp.md) · [BPJ 开发者入口](https://baipiaoji.com/developers?utm_source=github&utm_medium=readme&utm_campaign=decision_gate)
 
+**快速安装 Skill**（选择你的 Agent）：
+
+```bash
+npx skills add f-tiger/jev-decision-gate --skill jev-decision-gate
+```
+
+[Claude Code 接入](docs/clients/claude-code.md) · [Codex 接入](docs/clients/codex.md) · [Cursor 接入](docs/clients/cursor.md) · [下载 MCPB 安装包](https://github.com/f-tiger/jev-decision-gate/releases/tag/v0.3.1)
+
 ![三方对比动画：通用大模型 API、直接 Jev API、我们的 MCP。展示批量入口、校验、校准、复核和调用限制；对比模型输入单价与现成工作流。](docs/assets/token-cost-zh-CN.gif)
 
 **为什么安装我们的工具？** 一次安装，获得批量 Issue 入口、字段与用量检查、独立校准、留出集评估和接受／复核建议，共 6 个 MCP 工具，也可作为 Skill 或 CLI 使用。[三种接法详细对比](docs/why-use-mcp.md)。
@@ -77,11 +85,7 @@ jev-gate-mcp --data-root /你的授权数据目录
 
 默认只允许本地规则。需要 Jev 时，由你明确添加 `--allow-jev` 并配置进程环境变量。完整配置见 [MCP 文档](docs/mcp.md)。Skill 源码在 `skills/jev-decision-gate/`，按宿主支持的位置安装；复制 Skill 不代表自动接管宿主的全部模型路由。
 
-使用支持的 [Skills CLI](https://github.com/vercel-labs/skills) 安装：
-
-```bash
-npx skills add f-tiger/jev-decision-gate --skill jev-decision-gate
-```
+Skill 安装命令见本页顶部；支持的 Agent 见 [Skills CLI](https://github.com/vercel-labs/skills)。
 
 已验证 `--list` 能发现该 Skill，并完成独立安装和安装后的规则演示。安装时选择自己的 Agent。第三方 CLI 有独立的可选遥测，退出方式为 `DISABLE_TELEMETRY=1`，详见[官方说明](https://skills.sh/docs/cli)；本项目包自身没有遥测。
 
